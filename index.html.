@@ -1,0 +1,1202 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XI-3 Saintek 1 — Ruang Kelas Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EAF4FB;
+  --bg-soft:#F5FAFD;
+  --surface:#FFFFFF;
+  --line:#CFE4F3;
+  --line-soft:#E3F0F9;
+  --ink:#14314A;
+  --ink-soft:#4C7291;
+  --ink-faint:#7E9CB3;
+  --primary:#2E7DAF;
+  --primary-dark:#1D5A80;
+  --primary-tint:#DCEEFA;
+  --accent:#F2A65A;
+  --accent-dark:#D6863A;
+  --accent-tint:#FDEEDC;
+  --mint:#6FBE9C;
+  --radius-s:10px;
+  --radius-m:16px;
+  --radius-l:26px;
+  --shadow-s:0 2px 10px rgba(20,49,74,0.06);
+  --shadow-m:0 10px 30px rgba(20,49,74,0.10);
+  --shadow-l:0 20px 50px rgba(20,49,74,0.14);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Inter',sans-serif;
+  font-size:15.5px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{
+  font-family:'Fraunces',serif;
+  color:var(--ink);
+  margin:0 0 .4em 0;
+  font-weight:600;
+  letter-spacing:-0.01em;
+}
+p{margin:0 0 1em 0;}
+.mono{font-family:'JetBrains Mono',monospace;}
+a{color:inherit;}
+button{font-family:inherit;cursor:pointer;}
+img{max-width:100%;display:block;}
+::selection{background:var(--accent-tint);color:var(--ink);}
+
+/* ---------- decorative hex pattern ---------- */
+.hexbg{
+  position:fixed;inset:0;z-index:-1;
+  background-color:var(--bg);
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(46,125,175,0.05) 0, transparent 45%),
+    radial-gradient(circle at 85% 75%, rgba(242,166,90,0.06) 0, transparent 40%);
+}
+
+/* ---------- layout ---------- */
+.app-shell{
+  display:grid;
+  grid-template-columns:236px 1fr;
+  min-height:100vh;
+}
+.sidebar{
+  position:sticky;top:0;height:100vh;
+  background:linear-gradient(180deg,#1D5A80,#2E7DAF 55%,#3B8AC0);
+  color:#EAF4FB;
+  padding:26px 0 18px;
+  display:flex;flex-direction:column;
+  overflow-y:auto;
+}
+.brand{
+  padding:0 22px 20px;
+  border-bottom:1px dashed rgba(255,255,255,0.25);
+  margin-bottom:12px;
+}
+.brand .seal{
+  width:52px;height:52px;border-radius:50%;
+  background:var(--accent);
+  color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',serif;font-weight:700;font-size:18px;
+  box-shadow:var(--shadow-s);
+  margin-bottom:10px;
+}
+.brand h1{color:#fff;font-size:20px;margin:0;line-height:1.2;}
+.brand span{display:block;font-size:11.5px;color:#CDE7F7;font-family:'JetBrains Mono',monospace;letter-spacing:.06em;margin-top:4px;text-transform:uppercase;}
+
+nav.tabs-nav{flex:1;padding:6px 0;}
+.navlink{
+  display:flex;align-items:center;gap:11px;
+  width:100%;background:none;border:none;color:#DDEEFA;
+  padding:12px 22px;text-align:left;
+  font-size:14px;font-weight:500;
+  position:relative;
+  border-left:3px solid transparent;
+  transition:background .15s, color .15s;
+}
+.navlink svg{width:18px;height:18px;flex-shrink:0;opacity:.85;}
+.navlink:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.navlink.active{
+  background:var(--bg-soft);
+  color:var(--primary-dark);
+  border-left:3px solid var(--accent);
+  border-radius:0 20px 20px 0;
+  margin-right:14px;
+  font-weight:700;
+}
+.navlink.active svg{opacity:1;}
+.sidebar-foot{
+  padding:14px 22px 0;margin-top:10px;
+  border-top:1px dashed rgba(255,255,255,0.25);
+  font-size:11.5px;color:#BFE0F4;
+  font-family:'JetBrains Mono',monospace;
+}
+
+.main{padding:34px 42px 80px;max-width:1180px;}
+.page{display:none;animation:fadein .35s ease;}
+.page.active{display:block;}
+@keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--primary-dark);background:var(--primary-tint);
+  padding:5px 12px;border-radius:99px;margin-bottom:12px;font-weight:600;
+}
+.page-head{margin-bottom:28px;}
+.page-head p.lead{color:var(--ink-soft);font-size:16px;max-width:640px;margin:0;}
+
+.card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-m);
+  box-shadow:var(--shadow-s);
+}
+.section-title{
+  display:flex;align-items:center;gap:10px;
+  margin:38px 0 16px;
+}
+.section-title h2{font-size:22px;margin:0;}
+.section-title .line{flex:1;height:1px;background:var(--line);}
+
+/* ---------- BERANDA hero ---------- */
+.hero{
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary) 60%,#4A9BCF);
+  border-radius:var(--radius-l);
+  color:#fff;padding:40px 40px 34px;
+  position:relative;overflow:hidden;
+  margin-bottom:6px;
+}
+.hero::after{
+  content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;
+  background:radial-gradient(circle,rgba(255,255,255,0.14),transparent 70%);
+}
+.hero .tag{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#CDE7F7;}
+.hero h1{color:#fff;font-size:38px;margin:8px 0 10px;max-width:560px;}
+.hero p{color:#DCEEFA;max-width:480px;font-size:15.5px;}
+.hero-stats{display:flex;gap:26px;margin-top:22px;flex-wrap:wrap;}
+.hero-stats div{background:rgba(255,255,255,0.12);padding:10px 16px;border-radius:12px;}
+.hero-stats b{display:block;font-family:'Fraunces',serif;font-size:22px;}
+.hero-stats span{font-size:11.5px;color:#CDE7F7;font-family:'JetBrains Mono',monospace;text-transform:uppercase;}
+
+.two-col{display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:start;}
+@media(max-width:980px){.two-col{grid-template-columns:1fr;}}
+
+/* quote */
+.quote-block{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-m);
+  padding:30px 32px;position:relative;box-shadow:var(--shadow-s);
+}
+.quote-block .qmark{
+  font-family:'Fraunces',serif;font-size:64px;color:var(--accent);
+  line-height:0.5;position:absolute;top:26px;left:24px;opacity:.85;
+}
+.quote-block blockquote{
+  margin:8px 0 16px 34px;font-family:'Fraunces',serif;font-size:19px;
+  font-style:italic;color:var(--ink);line-height:1.5;
+}
+.quote-block cite{margin-left:34px;font-style:normal;font-size:13.5px;color:var(--ink-soft);display:flex;gap:8px;align-items:center;}
+.quote-block cite .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);}
+
+/* carousel */
+.carousel{position:relative;border-radius:var(--radius-m);overflow:hidden;box-shadow:var(--shadow-m);background:#0f2f45;}
+.carousel-track{display:flex;transition:transform .5s cubic-bezier(.65,0,.35,1);}
+.carousel-slide{min-width:100%;position:relative;}
+.carousel-slide img{width:100%;height:290px;object-fit:cover;filter:brightness(.92);}
+.carousel-cap{
+  position:absolute;left:0;right:0;bottom:0;padding:16px 20px;
+  background:linear-gradient(0deg,rgba(10,30,45,.82),transparent);
+  color:#fff;
+}
+.carousel-cap b{font-family:'Fraunces',serif;font-size:16.5px;display:block;}
+.carousel-cap span{font-size:12px;color:#CDE7F7;font-family:'JetBrains Mono',monospace;}
+.carousel-btn{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:36px;height:36px;border-radius:50%;border:none;
+  background:rgba(255,255,255,0.9);color:var(--primary-dark);
+  display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-s);
+  font-size:16px;
+}
+.carousel-btn.prev{left:14px;}
+.carousel-btn.next{right:14px;}
+.carousel-dots{position:absolute;bottom:10px;right:16px;display:flex;gap:6px;}
+.carousel-dots button{width:7px;height:7px;border-radius:50%;border:none;background:rgba(255,255,255,.5);padding:0;}
+.carousel-dots button.active{background:var(--accent);width:18px;border-radius:5px;}
+
+/* mini calendar */
+.cal-card{padding:22px;}
+.cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.cal-head h3{font-size:16px;margin:0;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;text-align:center;}
+.cal-grid .dow{font-size:10.5px;color:var(--ink-faint);font-family:'JetBrains Mono',monospace;padding-bottom:4px;}
+.cal-day{
+  aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  border-radius:8px;font-size:12.5px;color:var(--ink-soft);position:relative;
+  background:var(--bg-soft);
+}
+.cal-day.empty{background:none;}
+.cal-day.event{
+  background:var(--primary);color:#fff;font-weight:700;cursor:pointer;border:none;
+}
+.cal-day.event:after{
+  content:"";position:absolute;bottom:3px;left:50%;transform:translateX(-50%);
+  width:4px;height:4px;border-radius:50%;background:var(--accent);
+}
+.agenda-list{list-style:none;margin:14px 0 0;padding:0;}
+.agenda-list li{
+  display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--line-soft);font-size:13.5px;
+}
+.agenda-list li:first-child{border-top:none;}
+.agenda-date{
+  font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--accent-tint);color:var(--accent-dark);
+  padding:3px 7px;border-radius:6px;flex-shrink:0;font-weight:700;
+}
+
+/* popover */
+.popover-wrap{position:relative;display:inline-block;}
+.popover{
+  position:absolute;z-index:50;background:var(--ink);color:#fff;
+  padding:14px 16px;border-radius:12px;width:230px;font-size:12.8px;line-height:1.5;
+  box-shadow:var(--shadow-l);
+  opacity:0;transform:translateY(4px);pointer-events:none;transition:opacity .15s, transform .15s;
+}
+.popover.open{opacity:1;transform:none;pointer-events:auto;}
+.popover b{display:block;font-family:'Fraunces',serif;font-size:14.5px;margin-bottom:4px;color:#fff;}
+.popover .arrow{position:absolute;top:-6px;left:20px;width:12px;height:12px;background:var(--ink);transform:rotate(45deg);}
+.popover .close-x{position:absolute;top:8px;right:9px;background:none;border:none;color:#9DC4DE;font-size:14px;padding:0;}
+
+/* PROFIL */
+.subnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.subnav button{
+  background:var(--surface);border:1px solid var(--line);color:var(--ink-soft);
+  padding:8px 15px;border-radius:99px;font-size:13px;font-weight:600;
+}
+.subnav button.active{background:var(--primary);border-color:var(--primary);color:#fff;}
+
+.struktur-tree{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-m);padding:20px 24px;}
+details.tree-node{margin:2px 0;}
+details.tree-node > summary{
+  list-style:none;cursor:pointer;padding:8px 10px;border-radius:8px;
+  display:flex;align-items:center;gap:8px;font-weight:600;color:var(--ink);
+  font-size:14px;
+}
+details.tree-node > summary::-webkit-details-marker{display:none;}
+details.tree-node > summary::before{
+  content:"▸";color:var(--primary);font-size:11px;transition:transform .15s;flex-shrink:0;
+}
+details.tree-node[open] > summary::before{transform:rotate(90deg);}
+details.tree-node > summary:hover{background:var(--bg-soft);}
+.tree-children{margin-left:20px;padding-left:14px;border-left:1.5px dashed var(--line);}
+.tree-leaf{
+  margin-left:20px;padding:7px 10px 7px 24px;font-size:13.5px;color:var(--ink-soft);
+  border-left:1.5px dashed var(--line);position:relative;
+}
+.tree-leaf::before{content:"";position:absolute;left:0;top:15px;width:14px;height:1.5px;background:var(--line);}
+.tree-leaf b{color:var(--ink);font-weight:600;}
+.tree-leaf .role{
+  display:inline-block;margin-left:8px;font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  background:var(--accent-tint);color:var(--accent-dark);padding:1px 7px;border-radius:6px;
+}
+
+.student-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+@media(max-width:860px){.student-grid{grid-template-columns:repeat(2,1fr);}}
+.student-card{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-m);
+  padding:15px;display:flex;gap:12px;align-items:center;box-shadow:var(--shadow-s);
+}
+.avatar{
+  width:46px;height:46px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--primary),var(--mint));
+  color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;
+}
+.student-card .info{flex:1;min-width:0;}
+.student-card .info b{font-size:13.6px;display:block;color:var(--ink);}
+.student-card .info span{font-size:11.5px;color:var(--ink-faint);font-family:'JetBrains Mono',monospace;}
+.info-btn{
+  border:none;background:var(--primary-tint);color:var(--primary-dark);
+  width:26px;height:26px;border-radius:50%;font-size:13px;font-weight:700;flex-shrink:0;
+}
+
+/* pagination */
+.pagination{display:flex;justify-content:center;gap:6px;margin-top:22px;flex-wrap:wrap;}
+.pagination button{
+  border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);
+  width:34px;height:34px;border-radius:9px;font-size:13px;font-weight:600;
+}
+.pagination button.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+.pagination button:disabled{opacity:.4;}
+
+/* AKADEMIK tabs */
+.tabbar{display:flex;gap:4px;background:var(--surface);border:1px solid var(--line);padding:5px;border-radius:14px;width:fit-content;margin-bottom:18px;flex-wrap:wrap;}
+.tabbar button{
+  border:none;background:none;padding:8px 16px;border-radius:10px;font-size:13.5px;font-weight:600;color:var(--ink-soft);
+}
+.tabbar button.active{background:var(--primary);color:#fff;}
+.tabpanel{display:none;}
+.tabpanel.active{display:block;animation:fadein .3s ease;}
+
+.timeline{list-style:none;margin:0;padding:0;}
+.timeline li{
+  display:grid;grid-template-columns:90px 1fr;gap:16px;padding:13px 0;border-top:1px solid var(--line-soft);
+}
+.timeline li:first-child{border-top:none;}
+.timeline .jam{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--primary-dark);font-weight:700;padding-top:2px;}
+.timeline .mapel{font-weight:700;font-size:14.5px;}
+.timeline .guru{font-size:12.5px;color:var(--ink-faint);}
+
+.accordion{border:1px solid var(--line);border-radius:var(--radius-m);overflow:hidden;background:var(--surface);}
+.accordion-item + .accordion-item{border-top:1px solid var(--line);}
+.accordion-trigger{
+  width:100%;background:none;border:none;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;
+  font-size:14.5px;font-weight:700;color:var(--ink);text-align:left;
+}
+.accordion-trigger:hover{background:var(--bg-soft);}
+.accordion-trigger .chevron{transition:transform .2s;color:var(--primary);font-size:13px;}
+.accordion-item.open .chevron{transform:rotate(180deg);}
+.accordion-panel{max-height:0;overflow:hidden;transition:max-height .28s ease;}
+.accordion-panel-in{padding:0 20px 18px;font-size:13.5px;color:var(--ink-soft);}
+.tugas-row{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px dashed var(--line-soft);}
+.tugas-row:first-child{border-top:none;}
+.tugas-row .badge{font-family:'JetBrains Mono',monospace;font-size:10.5px;padding:2px 8px;border-radius:6px;font-weight:700;flex-shrink:0;height:fit-content;}
+.badge.ujian{background:#FBE2DF;color:#B5432E;}
+.badge.tugas{background:var(--primary-tint);color:var(--primary-dark);}
+
+/* MADING gallery */
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+@media(max-width:900px){.gallery-grid{grid-template-columns:repeat(2,1fr);}}
+.gallery-item{border-radius:var(--radius-m);overflow:hidden;position:relative;box-shadow:var(--shadow-s);aspect-ratio:4/3;}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .35s;}
+.gallery-item:hover img{transform:scale(1.06);}
+.gallery-item .cap{
+  position:absolute;left:0;right:0;bottom:0;padding:9px 11px;font-size:11.5px;color:#fff;
+  background:linear-gradient(0deg,rgba(10,30,45,.85),transparent);
+}
+
+/* PRESTASI rating */
+.prestasi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media(max-width:900px){.prestasi-grid{grid-template-columns:repeat(2,1fr);}}
+.prestasi-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-m);overflow:hidden;box-shadow:var(--shadow-s);}
+.prestasi-card img{height:150px;object-fit:cover;width:100%;}
+.prestasi-body{padding:15px 16px;}
+.prestasi-body .cat{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--accent-dark);text-transform:uppercase;letter-spacing:.06em;}
+.prestasi-body h4{font-size:15px;margin:4px 0 6px;}
+.prestasi-body p{font-size:12.6px;color:var(--ink-soft);margin-bottom:9px;}
+.stars{display:flex;gap:2px;}
+.stars svg{width:15px;height:15px;}
+.stars.static svg{fill:var(--line);}
+.stars.static svg.filled{fill:var(--accent);}
+.stars.input svg{fill:var(--line);cursor:pointer;}
+.stars.input svg.filled{fill:var(--accent);}
+
+/* KONTAK */
+.form-grid{display:grid;gap:14px;}
+.form-grid label{font-size:13px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px;}
+.form-grid input,.form-grid textarea,.form-grid select{
+  width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 13px;font-family:inherit;font-size:13.8px;
+  background:var(--bg-soft);color:var(--ink);
+}
+.form-grid textarea{resize:vertical;min-height:100px;}
+.btn{
+  border:none;background:var(--primary);color:#fff;padding:12px 22px;border-radius:99px;font-weight:700;font-size:13.8px;
+  box-shadow:var(--shadow-s);display:inline-flex;align-items:center;gap:8px;
+}
+.btn.accent{background:var(--accent);}
+.btn.ghost{background:var(--surface);color:var(--primary-dark);border:1px solid var(--line);}
+.wa-card{display:flex;gap:14px;align-items:center;padding:20px;background:linear-gradient(135deg,#25D366,#1CB853);border-radius:var(--radius-m);color:#fff;}
+.wa-card .wicon{width:44px;height:44px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.form-msg{margin-top:12px;font-size:13px;color:var(--mint);font-weight:600;display:none;}
+
+/* SUDUT CURHAT */
+.curhat-note{
+  background:var(--accent-tint);border:1px dashed var(--accent);border-radius:var(--radius-m);
+  padding:16px 18px;font-size:13.2px;color:var(--accent-dark);margin-bottom:20px;
+}
+
+/* INVENTARIS */
+.inv-summary{display:flex;gap:14px;margin-bottom:22px;flex-wrap:wrap;}
+.inv-summary .chip{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 18px;text-align:center;min-width:100px;}
+.inv-summary .chip b{display:block;font-family:'Fraunces',serif;font-size:20px;color:var(--primary-dark);}
+.inv-summary .chip span{font-size:11px;color:var(--ink-faint);text-transform:uppercase;font-family:'JetBrains Mono',monospace;}
+.inv-item-row{display:flex;justify-content:space-between;align-items:center;padding:8px 10px 8px 24px;font-size:13.4px;border-left:1.5px dashed var(--line);margin-left:20px;position:relative;}
+.inv-item-row::before{content:"";position:absolute;left:0;top:16px;width:14px;height:1.5px;background:var(--line);}
+.inv-item-row .qty{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:var(--primary-tint);color:var(--primary-dark);padding:2px 9px;border-radius:6px;font-weight:700;}
+.inv-item-row .qty.low{background:#FBE2DF;color:#B5432E;}
+
+/* DOWNLOADS */
+.dl-row{
+  display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--line);border-radius:var(--radius-m);
+  background:var(--surface);margin-bottom:10px;
+}
+.dl-icon{width:38px;height:38px;border-radius:10px;background:var(--primary-tint);color:var(--primary-dark);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;font-size:11px;font-family:'JetBrains Mono',monospace;}
+.dl-row .meta{flex:1;min-width:0;}
+.dl-row .meta b{font-size:13.8px;display:block;}
+.dl-row .meta span{font-size:11.5px;color:var(--ink-faint);font-family:'JetBrains Mono',monospace;}
+
+.footer-note{margin-top:60px;padding-top:20px;border-top:1px dashed var(--line);color:var(--ink-faint);font-size:12px;text-align:center;}
+
+@media(max-width:820px){
+  .app-shell{grid-template-columns:1fr;}
+  .sidebar{position:relative;height:auto;flex-direction:row;overflow-x:auto;padding:14px;}
+  .brand{border:none;padding:0 14px 0 4px;margin:0;display:flex;align-items:center;gap:10px;}
+  .brand .seal{margin:0;width:38px;height:38px;font-size:14px;}
+  .brand h1{font-size:14px;}
+  .brand span{display:none;}
+  nav.tabs-nav{display:flex;flex:none;}
+  .navlink{padding:10px 14px;white-space:nowrap;border-left:none;border-bottom:3px solid transparent;}
+  .navlink.active{border-radius:12px;margin:0 2px;border-left:none;border-bottom:3px solid var(--accent);}
+  .sidebar-foot{display:none;}
+  .main{padding:24px 18px 60px;}
+  .hero h1{font-size:28px;}
+  .two-col,.student-grid,.gallery-grid,.prestasi-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+<div class="hexbg"></div>
+<div class="app-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="seal">XI3</div>
+      <h1>Saintek 1</h1>
+      <span>Ruang Kelas Digital</span>
+    </div>
+    <nav class="tabs-nav" id="nav">
+      <button class="navlink active" data-page="beranda"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Beranda</button>
+      <button class="navlink" data-page="profil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Profil</button>
+      <button class="navlink" data-page="akademik"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5a2 2 0 012-2h13v16H6a2 2 0 00-2 2zm0 0a2 2 0 002 2h13"/></svg>Akademik</button>
+      <button class="navlink" data-page="mading"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="10" r="1.6"/><path d="M21 16l-5-5-4 4-2-2-5 5"/></svg>Mading</button>
+      <button class="navlink" data-page="prestasi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 01-10 0V4z"/><path d="M17 5h3a4 4 0 01-3 6M7 5H4a4 4 0 003 6"/></svg>Prestasi & Karya</button>
+      <button class="navlink" data-page="curhat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 01-11.9 7.8L3 21l1.7-6A8.5 8.5 0 1121 11.5z"/></svg>Sudut Curhat</button>
+      <button class="navlink" data-page="inventaris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/></svg>Inventaris</button>
+      <button class="navlink" data-page="downloads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4"/><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>Downloads</button>
+      <button class="navlink" data-page="kontak"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Kontak</button>
+    </nav>
+    <div class="sidebar-foot">Tahun Ajaran<br>2025 / 2026</div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ================= BERANDA ================= -->
+    <section class="page active" id="page-beranda">
+      <div class="hero">
+        <span class="tag">SMA · Kelas XI · Jurusan Saintek</span>
+        <h1>Selamat datang di rumah digital XI-3 Saintek 1</h1>
+        <p>Satu kelas, satu semangat mencari tahu — 36 siswa, dibimbing 16 guru mata pelajaran, mengejar rasa ingin tahu dalam sains dan kehidupan sehari-hari.</p>
+        <div class="hero-stats">
+          <div><b>36</b><span>Siswa</span></div>
+          <div><b>16</b><span>Guru Mapel</span></div>
+          <div><b>5</b><span>Hari Aktif</span></div>
+          <div><b>2025/26</b><span>Tahun Ajaran</span></div>
+        </div>
+      </div>
+
+      <div class="section-title"><h2>Sambutan Wali Kelas</h2><div class="line"></div></div>
+      <div class="two-col">
+        <div class="quote-block">
+          <span class="qmark">&ldquo;</span>
+          <blockquote>Kelas bukan hanya ruang belajar, tapi rumah kedua tempat kalian tumbuh — jaga kekompakan, rawat rasa ingin tahu, dan jangan takut bertanya. Ibu percaya XI-3 Saintek 1 bisa jadi kelas yang saling mengangkat, bukan saling menjatuhkan.</blockquote>
+          <cite><span class="dot"></span> Dra. Hj. Siti Aminah, M.Pd. — Wali Kelas XI-3 Saintek 1</cite>
+        </div>
+        <div class="card" style="padding:22px;">
+          <h3 style="font-size:16px;">Misi Kelas</h3>
+          <ul style="margin:0;padding-left:18px;font-size:13.5px;color:var(--ink-soft);line-height:1.9;">
+            <li>Menumbuhkan budaya belajar aktif dan saling membantu.</li>
+            <li>Menjaga kebersihan &amp; kekeluargaan ruang kelas.</li>
+            <li>Mendukung setiap anggota berprestasi sesuai minatnya.</li>
+            <li>Membangun komunikasi terbuka antar siswa dan wali kelas.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section-title"><h2>Foto Angkatan Kelas</h2><div class="line"></div></div>
+      <div class="carousel" id="heroCarousel">
+        <div class="carousel-track" id="heroTrack"></div>
+        <button class="carousel-btn prev" onclick="moveCarousel('hero',-1)">&#8592;</button>
+        <button class="carousel-btn next" onclick="moveCarousel('hero',1)">&#8594;</button>
+        <div class="carousel-dots" id="heroDots"></div>
+      </div>
+
+      <div class="section-title"><h2>Kalender Acara Kelas</h2><div class="line"></div></div>
+      <div class="two-col">
+        <div class="card cal-card">
+          <div class="cal-head"><h3>Agustus 2026</h3><span class="mono" style="font-size:11px;color:var(--ink-faint);">klik tanggal bertanda</span></div>
+          <div class="cal-grid" id="calGrid"></div>
+        </div>
+        <div class="card" style="padding:22px;">
+          <h3 style="font-size:16px;">Agenda Terdekat</h3>
+          <ul class="agenda-list" id="agendaList"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROFIL ================= -->
+    <section class="page" id="page-profil">
+      <div class="page-head">
+        <span class="eyebrow">Profil Kelas</span>
+        <h1>Kenali XI-3 Saintek 1</h1>
+        <p class="lead">Struktur pengurus, visi kelas, dan daftar lengkap 36 anggota kelas.</p>
+      </div>
+
+      <div class="two-col">
+        <div class="card" style="padding:22px;">
+          <h3 style="font-size:16px;">Struktur Pengurus Kelas</h3>
+          <div class="struktur-tree" id="strukturTree"></div>
+        </div>
+        <div class="card" style="padding:22px;background:linear-gradient(160deg,var(--primary-tint),var(--surface));">
+          <h3 style="font-size:16px;">Visi Kelas</h3>
+          <p style="font-size:14px;color:var(--ink);font-style:italic;font-family:'Fraunces',serif;line-height:1.6;">
+            "Menjadi kelas yang unggul dalam prestasi sains, kompak dalam kebersamaan, dan berani dalam berkarya."
+          </p>
+          <p style="font-size:12.6px;color:var(--ink-soft);margin:0;">Visi ini disusun bersama seluruh anggota kelas pada awal tahun ajaran sebagai arah bersama sepanjang semester.</p>
+        </div>
+      </div>
+
+      <div class="section-title"><h2>Daftar Anggota Kelas (36 Siswa)</h2><div class="line"></div></div>
+      <div class="student-grid" id="studentGrid"></div>
+      <div class="pagination" id="studentPagination"></div>
+    </section>
+
+    <!-- ================= AKADEMIK ================= -->
+    <section class="page" id="page-akademik">
+      <div class="page-head">
+        <span class="eyebrow">Akademik</span>
+        <h1>Jadwal &amp; Agenda Belajar</h1>
+        <p class="lead">Jadwal pelajaran mingguan dan daftar ujian / tugas harian, per mata pelajaran dari 16 guru pengampu.</p>
+      </div>
+
+      <div class="section-title"><h2>Jadwal Pelajaran Mingguan</h2><div class="line"></div></div>
+      <div class="tabbar" id="jadwalTabbar"></div>
+      <div id="jadwalPanels"></div>
+
+      <div class="section-title"><h2>Jadwal Ujian &amp; Tugas Harian</h2><div class="line"></div></div>
+      <div class="accordion" id="tugasAccordion"></div>
+
+      <div class="section-title"><h2>Daftar Guru Mata Pelajaran</h2><div class="line"></div></div>
+      <div class="student-grid" id="guruGrid"></div>
+    </section>
+
+    <!-- ================= MADING ================= -->
+    <section class="page" id="page-mading">
+      <div class="page-head">
+        <span class="eyebrow">Galeri &amp; Mading</span>
+        <h1>Dokumentasi Kegiatan</h1>
+        <p class="lead">Kumpulan foto studi tur, pentas seni, kerja bakti, dan momen kebersamaan kelas.</p>
+      </div>
+      <div class="tabbar" id="madingTabbar"></div>
+      <div class="gallery-grid" id="madingGrid"></div>
+    </section>
+
+    <!-- ================= PRESTASI ================= -->
+    <section class="page" id="page-prestasi">
+      <div class="page-head">
+        <span class="eyebrow">Apresiasi</span>
+        <h1>Prestasi &amp; Karya Siswa</h1>
+        <p class="lead">Ruang untuk memajang piala, piagam, puisi, dan karya gambar buatan anggota kelas.</p>
+      </div>
+      <div class="prestasi-grid" id="prestasiGrid"></div>
+    </section>
+
+    <!-- ================= CURHAT ================= -->
+    <section class="page" id="page-curhat">
+      <div class="page-head">
+        <span class="eyebrow">Kotak Aspirasi</span>
+        <h1>Sudut Curhat &amp; Saran</h1>
+        <p class="lead">Sampaikan masukan, keluhan, atau perasaanmu ke pengurus kelas secara anonim.</p>
+      </div>
+      <div class="curhat-note">🔒 Identitasmu tidak dicatat di mana pun pada halaman ini. Tulis dengan jujur dan sopan — pengurus kelas akan membacanya setiap minggu.</div>
+
+      <div class="two-col">
+        <div class="card" style="padding:24px;">
+          <div class="form-grid">
+            <div>
+              <label>Jenis pesan</label>
+              <select id="curhatJenis">
+                <option>Saran untuk kelas</option>
+                <option>Curhat / cerita perasaan</option>
+                <option>Laporan masalah</option>
+                <option>Apresiasi ke teman/guru</option>
+              </select>
+            </div>
+            <div>
+              <label>Isi pesan (anonim)</label>
+              <textarea placeholder="Tulis di sini..."></textarea>
+            </div>
+            <div>
+              <label>Seberapa nyaman kamu di kelas minggu ini?</label>
+              <div class="stars input" id="curhatRating"></div>
+            </div>
+            <button class="btn accent" onclick="submitCurhat()">Kirim Anonim</button>
+            <div class="form-msg" id="curhatMsg">Terkirim! Terima kasih sudah berbagi. 💙</div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:22px;">
+          <h3 style="font-size:16px;">Pertanyaan Umum</h3>
+          <div class="accordion" id="faqAccordion"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= INVENTARIS ================= -->
+    <section class="page" id="page-inventaris">
+      <div class="page-head">
+        <span class="eyebrow">Aset Kelas</span>
+        <h1>Inventaris Kelas</h1>
+        <p class="lead">Daftar barang milik kelas, dikelompokkan menurut kategori penggunaan.</p>
+      </div>
+      <div class="inv-summary" id="invSummary"></div>
+      <div class="card" style="padding:22px;">
+        <div id="invTree"></div>
+      </div>
+    </section>
+
+    <!-- ================= DOWNLOADS ================= -->
+    <section class="page" id="page-downloads">
+      <div class="page-head">
+        <span class="eyebrow">Berkas Belajar</span>
+        <h1>Downloads</h1>
+        <p class="lead">Unduh modul pelajaran dan rangkuman materi yang dibagikan guru maupun pengurus kelas.</p>
+      </div>
+      <div id="dlList"></div>
+      <div class="pagination" id="dlPagination"></div>
+    </section>
+
+    <!-- ================= KONTAK ================= -->
+    <section class="page" id="page-kontak">
+      <div class="page-head">
+        <span class="eyebrow">Hubungi Kami</span>
+        <h1>Kontak Kelas</h1>
+        <p class="lead">Kirim pesan ke pengurus kelas atau gabung ke grup komunikasi resmi.</p>
+      </div>
+
+      <div class="two-col">
+        <div class="card" style="padding:24px;">
+          <div class="form-grid">
+            <div><label>Nama</label><input type="text" placeholder="Nama kamu"></div>
+            <div><label>Untuk siapa pesan ini?</label>
+              <select><option>Wali Kelas</option><option>Ketua Kelas</option><option>Sekretaris</option><option>Bendahara</option></select>
+            </div>
+            <div><label>Pesan</label><textarea placeholder="Tulis pesanmu di sini..."></textarea></div>
+            <button class="btn" onclick="submitKontak()">Kirim Pesan</button>
+            <div class="form-msg" id="kontakMsg">Pesan terkirim ke pengurus kelas ✔</div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div class="wa-card">
+            <div class="wicon"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.4.8 3 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg></div>
+            <div>
+              <b style="display:block;font-family:'Fraunces',serif;font-size:16px;">Grup WhatsApp Resmi</b>
+              <span style="font-size:12.5px;opacity:.9;">XI-3 Saintek 1 · 52 anggota</span>
+            </div>
+          </div>
+          <div class="popover-wrap" style="align-self:flex-start;">
+            <button class="btn ghost" id="infoWaBtn">ⓘ Kenapa harus lewat grup WA?</button>
+            <div class="popover" id="infoWaPopover">
+              <button class="close-x" onclick="closePopover('infoWaPopover')">✕</button>
+              <div class="arrow"></div>
+              <b>Grup Komunikasi Resmi</b>
+              Info tugas mendadak, perubahan jadwal, dan pengumuman pengurus kelas selalu diumumkan lebih dulu di grup WA resmi ini.
+            </div>
+          </div>
+          <div class="card" style="padding:20px;">
+            <h3 style="font-size:15px;">Kontak Pengurus</h3>
+            <ul class="agenda-list" style="margin-top:6px;">
+              <li><span class="agenda-date">Ketua</span> Ahmad Fadillah R.</li>
+              <li><span class="agenda-date">Sekre</span> Siti Nurhaliza P.</li>
+              <li><span class="agenda-date">Bend.</span> Aulia Rahma W.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-note">Situs kelas XI-3 Saintek 1 · dibuat &amp; dirawat oleh pengurus kelas · Tahun Ajaran 2025/2026</div>
+  </main>
+</div>
+
+<script>
+/* ============ DATA ============ */
+const students = [
+"Adzka Rayi Zhafirah","Afifah Maahirah","Al Fatir Dewzah","Annisa Zakiyah",
+"Arel Alfachrizy","Azka Huda Adiwirya","Azkia Indah Maula","Azzacky Al Mirza",
+"Beby Alhusna","Bunga Amelia","Daim Faeyza","Elderou Ibni Alvaro",
+"Indri Nuraini Nst","Ivany Zahira Nadin","Kaka Achmad Khedira","Khairul Umam",
+"Lutfiah Bilqis Sianipar","M. Ichsanul Arrafath","M. Apta Zafran S","M. Bazli Al Hadif Lubis",
+"M. Fahri","M. Ridwan Nst.","Nadira Alfyza Khairani","Najlaa Qois Kirana",
+"Nur Asifa","Putri Adzkia","Radith Hamdani","Rais Al Hadi",
+"Reihana Safira Wijaya","Rodiah Siagian","Shafa Aulia Efendi","Syakira",
+"Taufikia Alfisyahri Al Bintari","Thahira Sabita Salman S.","Windi Riska Rahayu","Zahratun Nisa Asyifa"
+];
+
+const teachers = [
+["Dra. Hj. Siti Aminah, M.Pd.","Matematika Wajib (Wali Kelas)"],
+["Drs. Bambang Sutrisno","Fisika"],
+["Yuli Astuti, S.Pd.","Kimia"],
+["Agus Prabowo, M.Si.","Biologi"],
+["Rina Kusuma Dewi, S.Pd.","Matematika Peminatan"],
+["Hendri Saputra, S.Pd.","Bahasa Indonesia"],
+["Maria Christina, S.S.","Bahasa Inggris"],
+["Muhammad Yusuf, S.Pd.I.","Pendidikan Agama Islam"],
+["Dedi Kurniawan, S.Pd.","PPKn"],
+["Widiastuti, M.Pd.","Sejarah Indonesia"],
+["Fitriani, S.Pd.","Seni Budaya"],
+["Kurniawan Adi, S.Pd.","PJOK"],
+["Nur Laila, S.Kom.","Informatika"],
+["Sutejo, S.Pd.","Prakarya & Kewirausahaan"],
+["Ani Rahmawati, S.Pd.","Bahasa Daerah (Mulok)"],
+["Dra. Retno Wulandari, M.Pd.","Bimbingan Konseling (BK)"]
+];
+
+const heroPhotos = [
+{img:"https://picsum.photos/seed/angkatan1/900/500", title:"Foto Angkatan XI-3 Saintek 1", tag:"Awal Tahun Ajaran"},
+{img:"https://picsum.photos/seed/angkatan2/900/500", title:"Kebersamaan di Lapangan Sekolah", tag:"Upacara Bendera"},
+{img:"https://picsum.photos/seed/angkatan3/900/500", title:"Sesi Foto Wisuda Kenaikan Kelas", tag:"Dokumentasi Resmi"},
+{img:"https://picsum.photos/seed/angkatan4/900/500", title:"Suasana Ruang Kelas XI-3", tag:"Hari Belajar Biasa"}
+];
+
+const events = [
+{d:12,m:"Agu", name:"Rapat evaluasi tengah bulan", place:"Ruang Kelas XI-3"},
+{d:17,m:"Agu", name:"Upacara HUT RI ke-81", place:"Lapangan Sekolah"},
+{d:22,m:"Agu", name:"Ulangan harian Fisika Bab 2", place:"Ruang Kelas XI-3"},
+{d:28,m:"Agu", name:"Kerja bakti bersih kelas", place:"Ruang Kelas XI-3"}
+];
+const eventDays = events.map(e=>e.d);
+
+const jadwal = {
+"Senin":[["07.00–08.30","Matematika Wajib","Dra. Hj. Siti Aminah"],["08.30–10.00","Fisika","Drs. Bambang Sutrisno"],["10.15–11.45","Bahasa Indonesia","Hendri Saputra"],["12.30–14.00","PJOK","Kurniawan Adi"]],
+"Selasa":[["07.00–08.30","Kimia","Yuli Astuti"],["08.30–10.00","Biologi","Agus Prabowo"],["10.15–11.45","Matematika Peminatan","Rina Kusuma Dewi"],["12.30–14.00","Informatika","Nur Laila"]],
+"Rabu":[["07.00–08.30","Bahasa Inggris","Maria Christina"],["08.30–10.00","Sejarah Indonesia","Widiastuti"],["10.15–11.45","Fisika","Drs. Bambang Sutrisno"],["12.30–14.00","BK","Dra. Retno Wulandari"]],
+"Kamis":[["07.00–08.30","Kimia","Yuli Astuti"],["08.30–10.00","PPKn","Dedi Kurniawan"],["10.15–11.45","Matematika Wajib","Dra. Hj. Siti Aminah"],["12.30–14.00","Seni Budaya","Fitriani"]],
+"Jumat":[["07.00–08.30","Pendidikan Agama","Muhammad Yusuf"],["08.30–10.00","Prakarya","Sutejo"],["10.15–11.30","Bahasa Daerah","Ani Rahmawati"]]
+};
+
+const tugasUjian = [
+{minggu:"Minggu ini (10–14 Agustus)", items:[
+  ["ujian","Ulangan Harian","Fisika — Bab Gerak Lurus","Rabu, 12 Agu"],
+  ["tugas","Kumpul Laporan","Praktikum Biologi — Sel Tumbuhan","Kamis, 13 Agu"],
+  ["tugas","Tugas Kelompok","Matematika Peminatan — Soal Limit","Jumat, 14 Agu"]
+]},
+{minggu:"Minggu depan (17–21 Agustus)", items:[
+  ["ujian","Ulangan Harian","Kimia — Stoikiometri","Selasa, 18 Agu"],
+  ["tugas","Rangkuman Bab","Sejarah Indonesia — Masa Reformasi","Rabu, 19 Agu"]
+]},
+{minggu:"Dua minggu lagi (24–28 Agustus)", items:[
+  ["ujian","Ulangan Tengah Bab","Matematika Wajib — Barisan & Deret","Senin, 24 Agu"],
+  ["tugas","Presentasi Kelompok","Bahasa Inggris — Recount Text","Kamis, 27 Agu"]
+]}
+];
+
+const madingPhotos = {
+"Studi Tur":[["studitur1","Kunjungan ke Museum Sains"],["studitur2","Observasi Ekosistem Pantai"],["studitur3","Field trip ke Kebun Raya"],["studitur4","Sesi diskusi lapangan"]],
+"Pentas Seni":[["pensi1","Penampilan drama kelas"],["pensi2","Paduan suara antar kelas"],["pensi3","Dekorasi panggung pensi"],["pensi4","Sesi latihan tari daerah"]],
+"Kerja Bakti":[["bakti1","Membersihkan taman sekolah"],["bakti2","Menata ulang pojok baca"],["bakti3","Gotong royong ruang kelas"],["bakti4","Pengecatan mading kelas"]]
+};
+
+const prestasi = [
+{cat:"Piala", title:"Juara 2 Cerdas Cermat Sains", desc:"Diraih tim olimpiade kelas pada kompetisi tingkat kota.", rating:5, img:"https://picsum.photos/seed/piala1/400/260"},
+{cat:"Piagam", title:"Penghargaan Kelas Terbersih", desc:"Apresiasi dari sekolah atas kebersihan ruang kelas selama satu semester.", rating:4, img:"https://picsum.photos/seed/piagam1/400/260"},
+{cat:"Puisi", title:"\"Langit di Atas Kelas Kami\"", desc:"Karya puisi tentang kebersamaan, ditulis oleh salah satu siswa kelas.", rating:5, img:"https://picsum.photos/seed/puisi1/400/260"},
+{cat:"Karya Gambar", title:"Ilustrasi Struktur Sel", desc:"Karya sketsa biologi untuk tugas mading edukasi.", rating:4, img:"https://picsum.photos/seed/gambar1/400/260"},
+{cat:"Piala", title:"Juara 1 Lomba Poster Sains", desc:"Poster ajakan hemat energi, mewakili sekolah tingkat kabupaten.", rating:5, img:"https://picsum.photos/seed/piala2/400/260"},
+{cat:"Piagam", title:"Peserta Terbaik Debat Bahasa Inggris", desc:"Apresiasi partisipasi aktif dalam kompetisi debat antar kelas.", rating:3, img:"https://picsum.photos/seed/piagam2/400/260"}
+];
+
+const faq = [
+["Apakah pesan di Sudut Curhat benar-benar anonim?","Ya. Formulir ini tidak menyimpan nama, akun, maupun alamat IP pengirim. Hanya isi pesan yang dibaca pengurus kelas."],
+["Berapa lama pesan direspons?","Pengurus kelas membaca dan merangkum masukan setiap hari Jumat, lalu membahasnya bersama wali kelas bila diperlukan."],
+["Bolehkah menyampaikan keluhan tentang teman sekelas?","Boleh, selama disampaikan dengan sopan dan fokus pada masalah, bukan menyerang pribadi seseorang."]
+];
+
+const inventaris = {
+"Alat Kebersihan":[["Sapu",4,false],["Serokan",3,false],["Pel Lantai",2,false],["Kain Lap",6,false],["Kemoceng",2,true]],
+"Perabot Kelas":[["Meja Siswa",36,false],["Kursi Siswa",36,false],["Meja Guru",1,false],["Papan Tulis",2,false],["Penghapus Papan Tulis",3,true]],
+"Sudut Baca":[["Buku Pojok Baca",24,false],["Rak Buku Mini",1,false]]
+};
+
+const downloads = [
+["Modul Fisika — Gerak Lurus.pdf","2.4 MB","PDF"],
+["Rangkuman Kimia — Stoikiometri.docx","640 KB","DOC"],
+["Modul Biologi — Struktur Sel.pdf","3.1 MB","PDF"],
+["Latihan Soal Matematika Peminatan.pdf","1.2 MB","PDF"],
+["Rangkuman Sejarah — Era Reformasi.docx","480 KB","DOC"],
+["Template Laporan Praktikum.docx","220 KB","DOC"],
+["Modul Bahasa Inggris — Recount Text.pdf","900 KB","PDF"],
+["Rangkuman PPKn Bab 3.pdf","560 KB","PDF"],
+["Catatan Informatika — Algoritma Dasar.pdf","1.5 MB","PDF"],
+["Rangkuman Seni Budaya — Tari Daerah.docx","310 KB","DOC"]
+];
+
+/* ============ NAV ============ */
+document.getElementById('nav').addEventListener('click',e=>{
+  const btn = e.target.closest('.navlink'); if(!btn) return;
+  document.querySelectorAll('.navlink').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('page-'+btn.dataset.page).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+/* ============ CAROUSEL ============ */
+const carouselState = {hero:{idx:0}};
+function buildCarousel(){
+  const track = document.getElementById('heroTrack');
+  const dots = document.getElementById('heroDots');
+  heroPhotos.forEach((p,i)=>{
+    track.innerHTML += `<div class="carousel-slide"><img src="${p.img}" alt="${p.title}"><div class="carousel-cap"><b>${p.title}</b><span>${p.tag}</span></div></div>`;
+    dots.innerHTML += `<button class="${i===0?'active':''}" onclick="goCarousel('hero',${i})"></button>`;
+  });
+}
+function renderCarousel(key){
+  const st = carouselState[key];
+  document.getElementById(key+'Track').style.transform = `translateX(-${st.idx*100}%)`;
+  document.querySelectorAll('#'+key+'Dots button').forEach((d,i)=>d.classList.toggle('active', i===st.idx));
+}
+function moveCarousel(key,dir){
+  const len = heroPhotos.length;
+  carouselState[key].idx = (carouselState[key].idx + dir + len) % len;
+  renderCarousel(key);
+}
+function goCarousel(key,i){ carouselState[key].idx = i; renderCarousel(key); }
+setInterval(()=>moveCarousel('hero',1), 6000);
+
+/* ============ CALENDAR ============ */
+function buildCalendar(){
+  const grid = document.getElementById('calGrid');
+  ['Min','Sen','Sel','Rab','Kam','Jum','Sab'].forEach(d=>grid.innerHTML+=`<div class="dow">${d}</div>`);
+  const firstDow = 6; // Aug 1 2026 = Saturday
+  const daysInMonth = 31;
+  for(let i=0;i<firstDow;i++) grid.innerHTML += `<div class="cal-day empty"></div>`;
+  for(let d=1; d<=daysInMonth; d++){
+    const hasEvent = eventDays.includes(d);
+    grid.innerHTML += `<button class="cal-day ${hasEvent?'event':''}" ${hasEvent?`onclick="openCalPopover(event,${d})"`:'disabled'}>${d}</button>`;
+  }
+  const agenda = document.getElementById('agendaList');
+  events.forEach(e=>{
+    agenda.innerHTML += `<li><span class="agenda-date">${e.d} ${e.m}</span><span>${e.name}<br><small style="color:var(--ink-faint);">${e.place}</small></span></li>`;
+  });
+}
+let activeCalPopover = null;
+function openCalPopover(e, day){
+  closeAllPopovers();
+  const ev = events.find(x=>x.d===day);
+  const rect = e.target.getBoundingClientRect();
+  let pop = document.getElementById('calPopoverTemp');
+  if(pop) pop.remove();
+  pop = document.createElement('div');
+  pop.className = 'popover open';
+  pop.id = 'calPopoverTemp';
+  pop.style.position='fixed';
+  pop.style.top = (rect.bottom+8)+'px';
+  pop.style.left = Math.min(rect.left, window.innerWidth-250)+'px';
+  pop.innerHTML = `<button class="close-x" onclick="this.parentElement.remove()">✕</button><div class="arrow" style="left:16px;"></div><b>${ev.d} ${ev.m} — ${ev.name}</b>${ev.place}`;
+  document.body.appendChild(pop);
+  activeCalPopover = pop;
+}
+document.addEventListener('click',(e)=>{
+  if(activeCalPopover && !e.target.closest('.cal-day') && !e.target.closest('#calPopoverTemp')){
+    activeCalPopover.remove(); activeCalPopover=null;
+  }
+});
+
+/* ============ POPOVER (kontak) ============ */
+document.getElementById('infoWaBtn').addEventListener('click',()=>{
+  document.getElementById('infoWaPopover').classList.toggle('open');
+});
+function closePopover(id){ document.getElementById(id).classList.remove('open'); }
+function closeAllPopovers(){ document.querySelectorAll('.popover.open').forEach(p=>p.classList.remove('open')); }
+
+/* ============ TREE VIEW: struktur pengurus ============ */
+function buildStrukturTree(){
+  const el = document.getElementById('strukturTree');
+  el.innerHTML = `
+    <details class="tree-node" open>
+      <summary>Ketua Kelas</summary>
+      <div class="tree-children">
+        <div class="tree-leaf"><b>Ahmad Fadillah Ramadhan</b><span class="role">Ketua</span></div>
+        <div class="tree-leaf"><b>Bagus Setiawan</b><span class="role">Wakil Ketua</span></div>
+      </div>
+    </details>
+    <details class="tree-node">
+      <summary>Sekretaris</summary>
+      <div class="tree-children">
+        <div class="tree-leaf"><b>Siti Nurhaliza Putri</b><span class="role">Sekretaris 1</span></div>
+        <div class="tree-leaf"><b>Nabila Zahra</b><span class="role">Sekretaris 2</span></div>
+      </div>
+    </details>
+    <details class="tree-node">
+      <summary>Bendahara</summary>
+      <div class="tree-children">
+        <div class="tree-leaf"><b>Aulia Rahma Wati</b><span class="role">Bendahara 1</span></div>
+        <div class="tree-leaf"><b>Dewi Anggraini</b><span class="role">Bendahara 2</span></div>
+      </div>
+    </details>
+    <details class="tree-node">
+      <summary>Seksi &amp; Koordinator</summary>
+      <div class="tree-children">
+        <div class="tree-leaf"><b>Reza Maulana &amp; Fajar Nugroho</b><span class="role">Kebersihan</span></div>
+        <div class="tree-leaf"><b>Yusuf Abdullah</b><span class="role">Keamanan</span></div>
+        <div class="tree-leaf"><b>Dimas Prasetyo</b><span class="role">Perlengkapan</span></div>
+      </div>
+    </details>`;
+}
+
+/* ============ PROFIL: student grid + popover + pagination ============ */
+let studentPage = 1;
+const studentsPerPage = 9;
+function initials(name){ return name.split(' ').slice(0,2).map(w=>w[0]).join(''); }
+function renderStudents(){
+  const grid = document.getElementById('studentGrid');
+  grid.innerHTML='';
+  const start = (studentPage-1)*studentsPerPage;
+  const pageItems = students.slice(start, start+studentsPerPage);
+  pageItems.forEach((name, i)=>{
+    const globalIdx = start+i;
+    const nis = "2526"+String(globalIdx+1).padStart(2,'0');
+    const id = 'pop-stu-'+globalIdx;
+    grid.innerHTML += `
+      <div class="student-card">
+        <div class="avatar">${initials(name)}</div>
+        <div class="info"><b>${name}</b><span>NIS ${nis}</span></div>
+        <div class="popover-wrap">
+          <button class="info-btn" onclick="toggleStudentPopover(event,'${id}')">ⓘ</button>
+          <div class="popover" id="${id}" style="right:0;left:auto;">
+            <button class="close-x" onclick="closePopover('${id}')">✕</button>
+            <div class="arrow" style="left:auto;right:20px;"></div>
+            <b>${name}</b>
+            NIS: ${nis}<br>Absen ke-${globalIdx+1} · Anggota aktif XI-3 Saintek 1.
+          </div>
+        </div>
+      </div>`;
+  });
+  renderStudentPagination();
+}
+function toggleStudentPopover(e, id){
+  e.stopPropagation();
+  const wasOpen = document.getElementById(id).classList.contains('open');
+  closeAllPopovers();
+  if(!wasOpen) document.getElementById(id).classList.add('open');
+}
+document.addEventListener('click',(e)=>{
+  if(!e.target.closest('.popover-wrap')) closeAllPopovers();
+});
+function renderStudentPagination(){
+  const totalPages = Math.ceil(students.length/studentsPerPage);
+  const el = document.getElementById('studentPagination');
+  let html = `<button ${studentPage===1?'disabled':''} onclick="changeStudentPage(${studentPage-1})">‹</button>`;
+  for(let i=1;i<=totalPages;i++){
+    html += `<button class="${i===studentPage?'active':''}" onclick="changeStudentPage(${i})">${i}</button>`;
+  }
+  html += `<button ${studentPage===totalPages?'disabled':''} onclick="changeStudentPage(${studentPage+1})">›</button>`;
+  el.innerHTML = html;
+}
+function changeStudentPage(p){ studentPage=p; renderStudents(); window.scrollTo({top:document.getElementById('studentGrid').offsetTop-100,behavior:'smooth'}); }
+
+/* ============ AKADEMIK: tabs + accordion + guru ============ */
+function buildJadwalTabs(){
+  const days = Object.keys(jadwal);
+  const bar = document.getElementById('jadwalTabbar');
+  const panels = document.getElementById('jadwalPanels');
+  days.forEach((day,i)=>{
+    bar.innerHTML += `<button class="${i===0?'active':''}" data-day="${day}">${day}</button>`;
+    let rows = jadwal[day].map(([jam,mapel,guru])=>`
+      <li><span class="jam mono">${jam}</span><div><div class="mapel">${mapel}</div><div class="guru">${guru}</div></div></li>`).join('');
+    panels.innerHTML += `<div class="tabpanel ${i===0?'active':''}" id="jadwal-${day}"><div class="card" style="padding:6px 22px;"><ul class="timeline">${rows}</ul></div></div>`;
+  });
+  bar.addEventListener('click', e=>{
+    const b = e.target.closest('button'); if(!b) return;
+    bar.querySelectorAll('button').forEach(x=>x.classList.remove('active'));
+    panels.querySelectorAll('.tabpanel').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    document.getElementById('jadwal-'+b.dataset.day).classList.add('active');
+  });
+}
+function buildTugasAccordion(){
+  const el = document.getElementById('tugasAccordion');
+  tugasUjian.forEach((wk,i)=>{
+    const rows = wk.items.map(([type,label,desc,date])=>`
+      <div class="tugas-row"><span><b>${label}</b> — ${desc}</span><span class="badge ${type}">${date}</span></div>`).join('');
+    el.innerHTML += `
+      <div class="accordion-item ${i===0?'open':''}">
+        <button class="accordion-trigger">${wk.minggu}<span class="chevron">⌄</span></button>
+        <div class="accordion-panel"><div class="accordion-panel-in">${rows}</div></div>
+      </div>`;
+  });
+  initAccordion('tugasAccordion');
+}
+function initAccordion(containerId){
+  const container = document.getElementById(containerId);
+  container.querySelectorAll('.accordion-item').forEach(item=>{
+    const trigger = item.querySelector('.accordion-trigger');
+    const panel = item.querySelector('.accordion-panel');
+    if(item.classList.contains('open')) panel.style.maxHeight = panel.scrollHeight+'px';
+    trigger.addEventListener('click',()=>{
+      const isOpen = item.classList.contains('open');
+      container.querySelectorAll('.accordion-item').forEach(i=>{
+        i.classList.remove('open');
+        i.querySelector('.accordion-panel').style.maxHeight = null;
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        panel.style.maxHeight = panel.scrollHeight+'px';
+      }
+    });
+  });
+}
+function buildGuruGrid(){
+  const grid = document.getElementById('guruGrid');
+  teachers.forEach(([name,mapel])=>{
+    grid.innerHTML += `
+      <div class="student-card">
+        <div class="avatar" style="background:linear-gradient(135deg,var(--accent),var(--accent-dark));">${initials(name)}</div>
+        <div class="info"><b>${name}</b><span>${mapel}</span></div>
+      </div>`;
+  });
+}
+
+/* ============ MADING ============ */
+function buildMading(){
+  const bar = document.getElementById('madingTabbar');
+  const grid = document.getElementById('madingGrid');
+  const cats = Object.keys(madingPhotos);
+  cats.forEach((c,i)=> bar.innerHTML += `<button class="${i===0?'active':''}" data-cat="${c}">${c}</button>`);
+  function renderCat(cat){
+    grid.innerHTML='';
+    madingPhotos[cat].forEach(([seed,cap])=>{
+      grid.innerHTML += `<div class="gallery-item"><img src="https://picsum.photos/seed/${seed}/400/320" alt="${cap}"><div class="cap">${cap}</div></div>`;
+    });
+  }
+  renderCat(cats[0]);
+  bar.addEventListener('click', e=>{
+    const b = e.target.closest('button'); if(!b) return;
+    bar.querySelectorAll('button').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    renderCat(b.dataset.cat);
+  });
+}
+
+/* ============ PRESTASI: rating ============ */
+function starsSVG(filled){
+  return `<svg viewBox="0 0 24 24" class="${filled?'filled':''}"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>`;
+}
+function buildPrestasi(){
+  const grid = document.getElementById('prestasiGrid');
+  prestasi.forEach(p=>{
+    let starsHtml='';
+    for(let i=1;i<=5;i++) starsHtml += starsSVG(i<=p.rating);
+    grid.innerHTML += `
+      <div class="prestasi-card">
+        <img src="${p.img}" alt="${p.title}">
+        <div class="prestasi-body">
+          <span class="cat">${p.cat}</span>
+          <h4>${p.title}</h4>
+          <p>${p.desc}</p>
+          <div class="stars static">${starsHtml}</div>
+        </div>
+      </div>`;
+  });
+}
+
+/* ============ CURHAT: interactive rating + accordion FAQ ============ */
+let curhatRatingVal = 0;
+function buildCurhatRating(){
+  const el = document.getElementById('curhatRating');
+  function render(){
+    el.innerHTML='';
+    for(let i=1;i<=5;i++){
+      const span = document.createElement('span');
+      span.innerHTML = starsSVG(i<=curhatRatingVal);
+      span.querySelector('svg').addEventListener('click',()=>{ curhatRatingVal=i; render(); });
+      el.appendChild(span.firstChild);
+    }
+  }
+  render();
+}
+function submitCurhat(){
+  const msg = document.getElementById('curhatMsg');
+  msg.style.display='block';
+  setTimeout(()=>msg.style.display='none', 4000);
+}
+function submitKontak(){
+  const msg = document.getElementById('kontakMsg');
+  msg.style.display='block';
+  setTimeout(()=>msg.style.display='none', 4000);
+}
+function buildFaq(){
+  const el = document.getElementById('faqAccordion');
+  faq.forEach((f,i)=>{
+    el.innerHTML += `
+      <div class="accordion-item ${i===0?'open':''}">
+        <button class="accordion-trigger">${f[0]}<span class="chevron">⌄</span></button>
+        <div class="accordion-panel"><div class="accordion-panel-in">${f[1]}</div></div>
+      </div>`;
+  });
+  initAccordion('faqAccordion');
+}
+
+/* ============ INVENTARIS: tree view ============ */
+function buildInventaris(){
+  const summary = document.getElementById('invSummary');
+  let totalItem=0, totalUnit=0, lowStock=0;
+  Object.values(inventaris).forEach(list=>{
+    totalItem += list.length;
+    list.forEach(([name,qty,low])=>{ totalUnit+=qty; if(low) lowStock++; });
+  });
+  summary.innerHTML = `
+    <div class="chip"><b>${Object.keys(inventaris).length}</b><span>Kategori</span></div>
+    <div class="chip"><b>${totalItem}</b><span>Jenis Barang</span></div>
+    <div class="chip"><b>${totalUnit}</b><span>Total Unit</span></div>
+    <div class="chip"><b style="color:${lowStock>0?'#B5432E':'var(--primary-dark)'}">${lowStock}</b><span>Perlu Dicek</span></div>`;
+
+  const el = document.getElementById('invTree');
+  Object.entries(inventaris).forEach(([cat, list], idx)=>{
+    const rows = list.map(([name,qty,low])=>`
+      <div class="inv-item-row"><span>${name}</span><span class="qty ${low?'low':''}">${qty} unit</span></div>`).join('');
+    el.innerHTML += `
+      <details class="tree-node" ${idx===0?'open':''}>
+        <summary>${cat} <span style="font-weight:400;color:var(--ink-faint);font-size:12px;margin-left:6px;">(${list.length} jenis)</span></summary>
+        ${rows}
+      </details>`;
+  });
+}
+
+/* ============ DOWNLOADS: pagination ============ */
+let dlPage = 1;
+const dlPerPage = 5;
+function renderDownloads(){
+  const el = document.getElementById('dlList');
+  el.innerHTML='';
+  const start=(dlPage-1)*dlPerPage;
+  downloads.slice(start,start+dlPerPage).forEach(([name,size,type])=>{
+    el.innerHTML += `
+      <div class="dl-row">
+        <div class="dl-icon">${type}</div>
+        <div class="meta"><b>${name}</b><span>${size}</span></div>
+        <button class="btn ghost" onclick="alert('Fitur unduh contoh — hubungkan ke berkas asli sekolah.')">Unduh</button>
+      </div>`;
+  });
+  renderDlPagination();
+}
+function renderDlPagination(){
+  const totalPages = Math.ceil(downloads.length/dlPerPage);
+  const el = document.getElementById('dlPagination');
+  let html = `<button ${dlPage===1?'disabled':''} onclick="changeDlPage(${dlPage-1})">‹</button>`;
+  for(let i=1;i<=totalPages;i++) html += `<button class="${i===dlPage?'active':''}" onclick="changeDlPage(${i})">${i}</button>`;
+  html += `<button ${dlPage===totalPages?'disabled':''} onclick="changeDlPage(${dlPage+1})">›</button>`;
+  el.innerHTML = html;
+}
+function changeDlPage(p){ dlPage=p; renderDownloads(); }
+
+/* ============ INIT ============ */
+buildCarousel(); renderCarousel('hero');
+buildCalendar();
+buildStrukturTree();
+renderStudents();
+buildJadwalTabs();
+buildTugasAccordion();
+buildGuruGrid();
+buildMading();
+buildPrestasi();
+buildCurhatRating();
+buildFaq();
+buildInventaris();
+renderDownloads();
+</script>
+</body>
+</html>
