@@ -476,13 +476,13 @@ details.tree-node > summary:hover{background:var(--bg-soft);}
     <section class="page active" id="page-beranda">
       <div class="hero">
         <span class="tag">SMA · Kelas XI · Jurusan Saintek</span>
-        <h1>Selamat datang di rumah digital XI-3 Saintek 1</h1>
+        <h1>Selamat datang di kelas digital XI-3 Saintek 1</h1>
         <p>Satu kelas, satu semangat mencari tahu — 36 siswa, dibimbing 16 guru mata pelajaran, mengejar rasa ingin tahu dalam sains dan kehidupan sehari-hari.</p>
         <div class="hero-stats">
           <div><b>36</b><span>Siswa</span></div>
           <div><b>16</b><span>Guru Mapel</span></div>
-          <div><b>5</b><span>Hari Aktif</span></div>
-          <div><b>2025/26</b><span>Tahun Ajaran</span></div>
+          <div><b>6</b><span>Hari Aktif</span></div>
+          <div><b>2025/2026</b><span>Tahun Ajaran</span></div>
         </div>
       </div>
 
@@ -490,21 +490,21 @@ details.tree-node > summary:hover{background:var(--bg-soft);}
       <div class="two-col">
         <div class="quote-block">
           <span class="qmark">&ldquo;</span>
-          <blockquote>Kelas bukan hanya ruang belajar, tapi rumah kedua tempat kalian tumbuh — jaga kekompakan, rawat rasa ingin tahu, dan jangan takut bertanya. Ibu percaya XI-3 Saintek 1 bisa jadi kelas yang saling mengangkat, bukan saling menjatuhkan.</blockquote>
-          <cite><span class="dot"></span> Dra. Hj. Siti Aminah, M.Pd. — Wali Kelas XI-3 Saintek 1</cite>
+          <blockquote>Mari kita jadikan setiap hari di kelas ini sebagai langkah nyata untuk meraih masa depan yang luar biasa!</blockquote>
+          <cite><span class="dot"></span> Try Ade Jumita Wulandari M.Pd.Gr — Wali Kelas XI-3 Saintek 1 Digital</cite>
         </div>
         <div class="card" style="padding:22px;">
           <h3 style="font-size:16px;">Misi Kelas</h3>
           <ul style="margin:0;padding-left:18px;font-size:13.5px;color:var(--ink-soft);line-height:1.9;">
-            <li>Menumbuhkan budaya belajar aktif dan saling membantu.</li>
-            <li>Menjaga kebersihan &amp; kekeluargaan ruang kelas.</li>
-            <li>Mendukung setiap anggota berprestasi sesuai minatnya.</li>
-            <li>Membangun komunikasi terbuka antar siswa dan wali kelas.</li>
+            <li>Mewujudkan suasana belajar yang tertib, aktif, dan saing menghargai antar teman</li>
+            <li>Menjaga kebersihan dan kenyamanan ruang kelas tiap hari</li>
+            <li>Membiasaka sikap disiplin, jujur, dan bertanggung jawab dalam setiap kegiatan</li>
+            <li></li>Meningkatkan kerja sama dan rasa kekeluargaan di dalam kelas
           </ul>
         </div>
       </div>
 
-      <div class="section-title"><h2>Foto Angkatan Kelas</h2><div class="line"></div></div>
+      <div class="section-title"><h2>Galeri kelas</h2><div class="line"></div></div>
       <div class="carousel" id="heroCarousel">
         <div class="carousel-track" id="heroTrack"></div>
         <button class="carousel-btn prev" onclick="moveCarousel('hero',-1)">&#8592;</button>
@@ -529,8 +529,8 @@ details.tree-node > summary:hover{background:var(--bg-soft);}
     <section class="page" id="page-profil">
       <div class="page-head">
         <span class="eyebrow">Profil Kelas</span>
-        <h1>Kenali XI-3 Saintek 1</h1>
-        <p class="lead">Struktur pengurus, visi kelas, dan daftar lengkap 36 anggota kelas.</p>
+        <h1>Mengenal XI-3 Saintek 1</h1>
+        <p class="lead">Mengenal lebih dekat XI-3 Saintek 1 Digital. mulai dari struktur pengurus, visi kelas, hingga seluruh anggota kelas</p>
       </div>
 
       <div class="two-col">
@@ -541,9 +541,9 @@ details.tree-node > summary:hover{background:var(--bg-soft);}
         <div class="card" style="padding:22px;background:linear-gradient(160deg,var(--primary-tint),var(--surface));">
           <h3 style="font-size:16px;">Visi Kelas</h3>
           <p style="font-size:14px;color:var(--ink);font-style:italic;font-family:'Fraunces',serif;line-height:1.6;">
-            "Menjadi kelas yang unggul dalam prestasi sains, kompak dalam kebersamaan, dan berani dalam berkarya."
+            "Mewujudkan kelas yang kompak, berprestasi, dan mampu berkembang bersama dalam suasana belajar yang nyaman dan menyenangkan."
           </p>
-          <p style="font-size:12.6px;color:var(--ink-soft);margin:0;">Visi ini disusun bersama seluruh anggota kelas pada awal tahun ajaran sebagai arah bersama sepanjang semester.</p>
+          <p style="font-size:12.6px;color:var(--ink-soft);margin:0;">Bersama membangun kelas yang lebih baik dan berprestasi</p>
         </div>
       </div>
 
@@ -557,7 +557,7 @@ details.tree-node > summary:hover{background:var(--bg-soft);}
       <div class="page-head">
         <span class="eyebrow">Akademik</span>
         <h1>Jadwal &amp; Agenda Belajar</h1>
-        <p class="lead">Jadwal pelajaran mingguan dan daftar ujian / tugas harian, per mata pelajaran dari 16 guru pengampu.</p>
+        <p class="lead"></p>
       </div>
 
       <div class="section-title"><h2>Jadwal Pelajaran Mingguan</h2><div class="line"></div></div>
@@ -576,7 +576,7 @@ details.tree-node > summary:hover{background:var(--bg-soft);}
       <div class="page-head">
         <span class="eyebrow">Galeri &amp; Mading</span>
         <h1>Dokumentasi Kegiatan</h1>
-        <p class="lead">Kumpulan foto studi tur, pentas seni, kerja bakti, dan momen kebersamaan kelas.</p>
+        <p class="lead">Kumpulan dokumentasi kegiatan, tugas, dan momen kebersamaan kelas.</p>
       </div>
       <div class="tabbar" id="madingTabbar"></div>
       <div class="gallery-grid" id="madingGrid"></div>
@@ -587,7 +587,7 @@ details.tree-node > summary:hover{background:var(--bg-soft);}
       <div class="page-head">
         <span class="eyebrow">Apresiasi</span>
         <h1>Prestasi &amp; Karya Siswa</h1>
-        <p class="lead">Ruang untuk memajang piala, piagam, puisi, dan karya gambar buatan anggota kelas.</p>
+        <p class="lead">Ruang untuk menampilkan karya, kreativitas, dan pencapaian siswa XI-3 Saintek 1.</p>
       </div>
       <div class="prestasi-grid" id="prestasiGrid"></div>
     </section>
@@ -596,10 +596,10 @@ details.tree-node > summary:hover{background:var(--bg-soft);}
     <section class="page" id="page-curhat">
       <div class="page-head">
         <span class="eyebrow">Kotak Aspirasi</span>
-        <h1>Sudut Curhat &amp; Saran</h1>
-        <p class="lead">Sampaikan masukan, keluhan, atau perasaanmu ke pengurus kelas secara anonim.</p>
+        <h1>kotak aspirasi &amp; Saran</h1>
+        <p class="lead">Sampaikan saran, masukan, atau hal yang ingin disampaikan kepada pengurus kelas.</p>
       </div>
-      <div class="curhat-note">🔒 Identitasmu tidak dicatat di mana pun pada halaman ini. Tulis dengan jujur dan sopan — pengurus kelas akan membacanya setiap minggu.</div>
+      <div class="curhat-note">Sampaikan pendapatmu dengan jujur dan sopan. Setiap masukan akan menjadi bahan evaluasi bagi kelas .</div>
 
       <div class="two-col">
         <div class="card" style="padding:24px;">
@@ -608,21 +608,21 @@ details.tree-node > summary:hover{background:var(--bg-soft);}
               <label>Jenis pesan</label>
               <select id="curhatJenis">
                 <option>Saran untuk kelas</option>
-                <option>Curhat / cerita perasaan</option>
+                <option>Masukan untuk pengurus</option>
                 <option>Laporan masalah</option>
-                <option>Apresiasi ke teman/guru</option>
+                <option>Apresiasi untuk teman/guru</option>
               </select>
             </div>
             <div>
-              <label>Isi pesan (anonim)</label>
-              <textarea placeholder="Tulis di sini..."></textarea>
+              <label>Isi pesan</label>
+              <textarea placeholder="Tulis saran atau pesanmu di sini..."></textarea>
             </div>
             <div>
-              <label>Seberapa nyaman kamu di kelas minggu ini?</label>
+              <label>Seberapa nyaman kamu belajar dan beraktivits di kelas ?</label>
               <div class="stars input" id="curhatRating"></div>
             </div>
-            <button class="btn accent" onclick="submitCurhat()">Kirim Anonim</button>
-            <div class="form-msg" id="curhatMsg">Terkirim! Terima kasih sudah berbagi. 💙</div>
+            <button class="btn accent" onclick="submitCurhat()">Kirim pesan</button>
+            <div class="form-msg" id="curhatMsg">Terkirim! Terima kasih atas saran dan masukannya! 💙</div>
           </div>
         </div>
 
@@ -638,7 +638,7 @@ details.tree-node > summary:hover{background:var(--bg-soft);}
       <div class="page-head">
         <span class="eyebrow">Aset Kelas</span>
         <h1>Inventaris Kelas</h1>
-        <p class="lead">Daftar barang milik kelas, dikelompokkan menurut kategori penggunaan.</p>
+        <p class="lead">Daftar barang dan perlengkapan milik kelas yang digunakan untuk mendukung kegiatan belajar dan aktivitas bersama.</p>
       </div>
       <div class="inv-summary" id="invSummary"></div>
       <div class="card" style="padding:22px;">
