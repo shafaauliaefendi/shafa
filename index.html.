@@ -726,22 +726,26 @@ const students = [
 ];
 
 const teachers = [
-["Dra. Hj. Siti Aminah, M.Pd.","Matematika Wajib (Wali Kelas)"],
-["Drs. Bambang Sutrisno","Fisika"],
-["Yuli Astuti, S.Pd.","Kimia"],
-["Agus Prabowo, M.Si.","Biologi"],
-["Rina Kusuma Dewi, S.Pd.","Matematika Peminatan"],
-["Hendri Saputra, S.Pd.","Bahasa Indonesia"],
-["Maria Christina, S.S.","Bahasa Inggris"],
-["Muhammad Yusuf, S.Pd.I.","Pendidikan Agama Islam"],
-["Dedi Kurniawan, S.Pd.","PPKn"],
-["Widiastuti, M.Pd.","Sejarah Indonesia"],
-["Fitriani, S.Pd.","Seni Budaya"],
-["Kurniawan Adi, S.Pd.","PJOK"],
-["Nur Laila, S.Kom.","Informatika"],
-["Sutejo, S.Pd.","Prakarya & Kewirausahaan"],
-["Ani Rahmawati, S.Pd.","Bahasa Daerah (Mulok)"],
-["Dra. Retno Wulandari, M.Pd.","Bimbingan Konseling (BK)"]
+["Try Ade Jumita Wulandari, M.Pd.GR","Biologi (Wali Kelas)"],
+["Henri Sasti, M.Sc","Fisika"],
+["Diki Suprapto, M.Pd.GR","Kimia"],
+["M. Nazwir Harahap S.Pd, M.Si.","Bahasa Arab"],
+["Dwi Ayu Apriani, S.Pd.GR","Matematika wajib"],
+["Putri Winda Sari Batubara, S.Si.GR","Matematika TL"],
+["Ulfah Rani Daulay, M.Pd.GR","Bahasa Indonesia"],
+["Raihana Sakdiah, M.A.","Bahasa Inggris"],
+["Mita Juehara, S.Pd.GR","PPKn"],
+["Fiki Arul Lansyah, S.Pd.GR","Sejarah"],
+["Nuralifia Neami Nst, S.Pd.","Seni Budaya"],
+["Rio Agua S., S.Pd.","PJOK"],
+["Saidina Adita Wicaksana, A.MD.Kom.","Informatika"],
+["Halimatussa'diah","S.Pd.I. G"],
+["Lili Yuliana, S.Pd.I.GR","Al Quran Hadis"],
+["Risnul Hilman Siregar, S.Pd.I.GR","Fikih"]
+["Bukhari, S.Pd.I","Akidah Akhlak"]
+["Ramadhan Gafar, M.Ag","MLTQ"]
+["Putri Ananda Siregar, S.Ak.","MLPP]
+[Hendriyal, M.Pd.GR","BK"]
 ];
 
 const heroPhotos = [
@@ -760,17 +764,18 @@ const events = [
 const eventDays = events.map(e=>e.d);
 
 const jadwal = {
-"Senin":[["07.00–08.30","Matematika Wajib","Dra. Hj. Siti Aminah"],["08.30–10.00","Fisika","Drs. Bambang Sutrisno"],["10.15–11.45","Bahasa Indonesia","Hendri Saputra"],["12.30–14.00","PJOK","Kurniawan Adi"]],
-"Selasa":[["07.00–08.30","Kimia","Yuli Astuti"],["08.30–10.00","Biologi","Agus Prabowo"],["10.15–11.45","Matematika Peminatan","Rina Kusuma Dewi"],["12.30–14.00","Informatika","Nur Laila"]],
-"Rabu":[["07.00–08.30","Bahasa Inggris","Maria Christina"],["08.30–10.00","Sejarah Indonesia","Widiastuti"],["10.15–11.45","Fisika","Drs. Bambang Sutrisno"],["12.30–14.00","BK","Dra. Retno Wulandari"]],
-"Kamis":[["07.00–08.30","Kimia","Yuli Astuti"],["08.30–10.00","PPKn","Dedi Kurniawan"],["10.15–11.45","Matematika Wajib","Dra. Hj. Siti Aminah"],["12.30–14.00","Seni Budaya","Fitriani"]],
-"Jumat":[["07.00–08.30","Pendidikan Agama","Muhammad Yusuf"],["08.30–10.00","Prakarya","Sutejo"],["10.15–11.30","Bahasa Daerah","Ani Rahmawati"]]
+"Senin":[["07.45-09.15","Biologi","Try Ade Jumita Wulandari"],["09.15-10.55","Fisika","Hendri Sasti"],["10.55–13.40","Bahasa Indonesia","Ulfah Rani Daulay"],["13.40-15.00","Informatika","Sidina Adita Wicaksana"]],
+"Selasa":[[07.30-09.00","MLPP","Putri Ananda S."],["09.00-10.45","Akidah Akhlak","Bukhari"],["10.45-11.30","MLTQ","Ramadhan Gafar"],["11.30-12.30","Al Quran Hadis","Lili Yuliana "]],["13.30-15,00","Informatika","Saidina Adita Wicaksana:]]
+"Rabu":[["07.30-09.45","Bahasa Inggris","Raihana Sakdiyah"],["10.00-11.30","Kimia","Diki Suprapto"],["11.30-13.30","Biologi","Try Ade Jumita Wulandari"],["13.30-15.00","Fisika","Hendri Sasti"]],
+"Kamis":[["07.30-09.00","Bahasa Arab","M. Nazwir Harahap"],["09.00-09.15","Ski","Halimatussa'diah"],["10.00-11.30","PKN","Mita Juehara"],["11.30-13.30","Sejarah","Fiki Arul Lansyah"]],
+"Jumat":[["07.30-08.50","Matematika Wajib","Dwi Ayu Apriani"],["08.50-10.20","Kimia","Diki Suprapto"],["10.30-11,30","Kimia","Diki Suprapto"]]
 };
+"Sabtu":[[07.30-08.50","Fikih","Risnul Hilman S."],[09.30-10.25",Matematika TL",Putri Winda Sari Batubara],[10.25-11.45","Seni Budaya","Nuralifia Neami Nst"],["11.45-12.20","Ski",Halimatussa'diah"],["13.10-14.30","Matematika Wajib","Dwi Ayu Apriani"]]
 
 const tugasUjian = [
-{minggu:"Minggu ini (10–14 Agustus)", items:[
-  ["ujian","Ulangan Harian","Fisika — Bab Gerak Lurus","Rabu, 12 Agu"],
-  ["tugas","Kumpul Laporan","Praktikum Biologi — Sel Tumbuhan","Kamis, 13 Agu"],
+{minggu:"Minggu ini", items:[
+  ["ujian","Ulangan Harian","],
+  ["tugas","Kumpul Laporan","]
   ["tugas","Tugas Kelompok","Matematika Peminatan — Soal Limit","Jumat, 14 Agu"]
 ]},
 {minggu:"Minggu depan (17–21 Agustus)", items:[
@@ -805,9 +810,8 @@ const faq = [
 ];
 
 const inventaris = {
-"Alat Kebersihan":[["Sapu",4,false],["Serokan",3,false],["Pel Lantai",2,false],["Kain Lap",6,false],["Kemoceng",2,true]],
-"Perabot Kelas":[["Meja Siswa",36,false],["Kursi Siswa",36,false],["Meja Guru",1,false],["Papan Tulis",2,false],["Penghapus Papan Tulis",3,true]],
-"Sudut Baca":[["Buku Pojok Baca",24,false],["Rak Buku Mini",1,false]]
+"Alat Kebersihan":[["Sapu",3,false],["Serokan",2,false],["Pel Lantai",1,false],["Kemoceng",1,true]],
+"Perabot Kelas":[["Meja Siswa",19,false],["Kursi Siswa",36,false],["Meja Guru",1,false],["Papan Tulis",2,false],["Penghapus Papan Tulis",2,true]],
 };
 
 const downloads = [
@@ -909,31 +913,34 @@ function buildStrukturTree(){
     <details class="tree-node" open>
       <summary>Ketua Kelas</summary>
       <div class="tree-children">
-        <div class="tree-leaf"><b>Ahmad Fadillah Ramadhan</b><span class="role">Ketua</span></div>
-        <div class="tree-leaf"><b>Bagus Setiawan</b><span class="role">Wakil Ketua</span></div>
+        <div class="tree-leaf"><b>M. Ridwan Nst</b><span class="role">Ketua</span></div>
+        <div class="tree-leaf"><b>M. Ichsanul Arrafath</b><span class="role">Wakil Ketua</span></div>
       </div>
     </details>
     <details class="tree-node">
       <summary>Sekretaris</summary>
       <div class="tree-children">
-        <div class="tree-leaf"><b>Siti Nurhaliza Putri</b><span class="role">Sekretaris 1</span></div>
-        <div class="tree-leaf"><b>Nabila Zahra</b><span class="role">Sekretaris 2</span></div>
+        <div class="tree-leaf"><b>Nur Asifa</b><span class="role">Sekretaris</span></div>
+        <div class="tree-leaf"><b>Taufikia Alfisyahri Albintari</b><span class="role">Wakil Sekretaris</span></div>
       </div>
     </details>
     <details class="tree-node">
       <summary>Bendahara</summary>
       <div class="tree-children">
-        <div class="tree-leaf"><b>Aulia Rahma Wati</b><span class="role">Bendahara 1</span></div>
-        <div class="tree-leaf"><b>Dewi Anggraini</b><span class="role">Bendahara 2</span></div>
+        <div class="tree-leaf"><b>Putri Adzkia</b><span class="role">Bendahara</span></div>
+        <div class="tree-leaf"><b>Dewi Anggraini</b><span class="role">Wakil Bendahara</span></div>
       </div>
     </details>
     <details class="tree-node">
       <summary>Seksi &amp; Koordinator</summary>
       <div class="tree-children">
-        <div class="tree-leaf"><b>Reza Maulana &amp; Fajar Nugroho</b><span class="role">Kebersihan</span></div>
-        <div class="tree-leaf"><b>Yusuf Abdullah</b><span class="role">Keamanan</span></div>
-        <div class="tree-leaf"><b>Dimas Prasetyo</b><span class="role">Perlengkapan</span></div>
-      </div>
+        <div class="tree-leaf"><b>Elderou</b><span class="role">Kebersihan</span></div>
+        <div class="tree-leaf"><b>Apta</b><span class="role">Imtaq</span><span></div>
+        <div class="tree-leaf"><b>Radith</b><span class="role">Informasi</span></div>
+        <div class="tree-leaf"><b>Bazli</b><span class="role">Wirakreasi</span></div>
+        <div class="tree-leaf"><b>Umam</b><span class="role">Administrasi</span></div>
+
+
     </details>`;
 }
 
