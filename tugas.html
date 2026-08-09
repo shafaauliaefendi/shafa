@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XI-3 Saintek 1 Digital · 2026/2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0A1B33;
+  --navy:#0E2A52;
+  --azure:#2F6FED;
+  --azure-dim:#4C7FEE;
+  --sky:#8FCBFF;
+  --paper:#F3F7FD;
+  --paper-2:#E8F0FC;
+  --card:#FFFFFF;
+  --gold:#F2A93B;
+  --line:#D7E3F6;
+  --text:#16233D;
+  --text-dim:#5B6B87;
+  --radius:16px;
+  --shadow:0 10px 30px -12px rgba(14,42,82,.25);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--paper);
+  color:var(--text);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;color:var(--ink);letter-spacing:-.01em;}
+.mono{font-family:'JetBrains Mono',monospace;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;}
+img{max-width:100%;display:block;}
+::selection{background:var(--sky);color:var(--ink);}
+
+/* ---------- Focus ---------- */
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
+  outline:3px solid var(--gold);outline-offset:2px;border-radius:4px;
+}
+
+/* ---------- Top badge bar ---------- */
+.topbar{
+  background:var(--ink);
+  color:#DCE8FF;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  letter-spacing:.08em;
+  padding:7px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:6px;
+}
+.topbar .dot{color:var(--gold);}
+
+/* ---------- Nav ---------- */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(243,247,253,.88);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+  padding:14px 24px;
+  display:flex;align-items:center;gap:18px;
+  flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:12px;margin-right:auto;}
+.brand-badge{
+  width:42px;height:42px;border-radius:10px;
+  background:linear-gradient(145deg,var(--azure),var(--ink));
+  color:#fff;font-family:'Space Grotesk';font-weight:700;font-size:14px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--shadow);
+}
+.brand-text{display:flex;flex-direction:column;line-height:1.15;}
+.brand-text b{font-family:'Space Grotesk';font-size:15px;color:var(--ink);}
+.brand-text span{font-size:11px;color:var(--text-dim);letter-spacing:.04em;}
+
+.tabs{display:flex;gap:4px;flex-wrap:wrap;}
+.tab-btn{
+  padding:9px 14px;border-radius:999px;font-size:13.5px;font-weight:600;
+  color:var(--text-dim);transition:.2s;white-space:nowrap;
+}
+.tab-btn:hover{background:var(--paper-2);color:var(--ink);}
+.tab-btn.active{background:var(--azure);color:#fff;box-shadow:0 6px 16px -6px rgba(47,111,237,.6);}
+
+/* ---------- Sections ---------- */
+.view{display:none;animation:fadeUp .5s ease;}
+.view.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+@media (prefers-reduced-motion:reduce){.view{animation:none;}*{scroll-behavior:auto!important;}}
+
+section{padding:64px 24px;max-width:1180px;margin:0 auto;}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;
+  color:var(--azure);text-transform:uppercase;font-weight:600;margin-bottom:10px;
+  display:flex;align-items:center;gap:8px;
+}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--gold);display:inline-block;}
+h2.title{font-size:clamp(28px,4vw,40px);margin-bottom:6px;}
+.lede{color:var(--text-dim);max-width:640px;margin-bottom:36px;font-size:15.5px;}
+
+/* ---------- Hero ---------- */
+.hero{
+  background:radial-gradient(circle at 15% 20%, rgba(143,203,255,.35), transparent 45%),
+             linear-gradient(160deg,var(--ink) 0%, var(--navy) 55%, #123262 100%);
+  color:#EAF2FF;padding:0;position:relative;overflow:hidden;
+}
+.hero-inner{max-width:1180px;margin:0 auto;padding:76px 24px 60px;display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center;position:relative;z-index:2;}
+.hero-grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(143,203,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(143,203,255,.08) 1px,transparent 1px);background-size:38px 38px;mask-image:radial-gradient(circle at 20% 30%,black,transparent 70%);}
+.hero-eyebrow{font-family:'JetBrains Mono';font-size:12.5px;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:18px;}
+.hero h1{font-size:clamp(32px,5vw,52px);color:#fff;line-height:1.08;margin-bottom:18px;}
+.hero h1 em{font-style:normal;color:var(--sky);}
+.hero p{color:#B9CCEA;max-width:520px;font-size:16px;margin-bottom:28px;}
+.hero-stats{display:flex;gap:28px;flex-wrap:wrap;}
+.hero-stat b{font-family:'Space Grotesk';font-size:26px;color:#fff;display:block;}
+.hero-stat span{font-size:12px;color:#93A9CC;text-transform:uppercase;letter-spacing:.06em;}
+.id-card{
+  background:linear-gradient(160deg,#123262,#0A1B33);
+  border:1px solid rgba(143,203,255,.25);
+  border-radius:20px;padding:26px;box-shadow:0 30px 60px -20px rgba(0,0,0,.55);
+  position:relative;
+}
+.id-card::before{content:"KARTU KELAS DIGITAL";position:absolute;top:16px;right:20px;font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:.1em;color:#5C79AC;}
+.id-photo{width:60px;height:60px;border-radius:14px;background:linear-gradient(135deg,var(--azure),var(--sky));display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk';font-weight:700;color:#fff;font-size:20px;margin-bottom:16px;}
+.id-card h3{color:#fff;font-size:20px;margin-bottom:4px;}
+.id-card .sub{color:#8FA9D6;font-size:13px;margin-bottom:18px;}
+.id-row{display:flex;justify-content:space-between;padding:9px 0;border-top:1px dashed rgba(143,203,255,.2);font-size:13px;color:#C6D6F0;}
+.id-row b{color:#fff;font-weight:600;}
+
+/* ---------- Quote carousel ---------- */
+.quote-wrap{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:34px 38px;box-shadow:var(--shadow);position:relative;overflow:hidden;margin-top:20px;
+}
+.quote-wrap::before{content:"“";position:absolute;top:-30px;left:14px;font-family:'Space Grotesk';font-size:150px;color:var(--paper-2);z-index:0;}
+.quote-track{position:relative;z-index:1;min-height:72px;}
+.quote-item{display:none;}
+.quote-item.active{display:block;animation:fadeUp .4s ease;}
+.quote-text{font-family:'Space Grotesk';font-size:19px;color:var(--ink);margin-bottom:10px;}
+.quote-by{font-size:13px;color:var(--azure);font-weight:600;}
+.quote-dots{display:flex;gap:7px;margin-top:18px;position:relative;z-index:1;}
+.quote-dots button{width:8px;height:8px;border-radius:50%;background:var(--line);transition:.2s;}
+.quote-dots button.active{background:var(--azure);width:22px;border-radius:6px;}
+
+/* ---------- Carousel (angkatan photos) ---------- */
+.carousel{position:relative;margin-top:20px;}
+.carousel-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:14px;scrollbar-width:thin;scrollbar-color:var(--azure) var(--paper-2);}
+.carousel-track::-webkit-scrollbar{height:7px;}
+.carousel-track::-webkit-scrollbar-thumb{background:var(--azure);border-radius:10px;}
+.carousel-track::-webkit-scrollbar-track{background:var(--paper-2);border-radius:10px;}
+.cslide{flex:0 0 260px;scroll-snap-align:start;background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);}
+.cslide .ph{height:170px;background:linear-gradient(135deg,var(--azure),var(--navy));display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Space Grotesk';font-size:15px;text-align:center;padding:10px;}
+.cslide .cap{padding:12px 14px;font-size:13px;color:var(--text-dim);}
+.carousel-nav{display:flex;gap:8px;justify-content:flex-end;margin-top:8px;}
+.carousel-nav button{width:36px;height:36px;border-radius:50%;background:var(--card);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--azure);font-size:16px;transition:.2s;}
+.carousel-nav button:hover{background:var(--azure);color:#fff;}
+
+/* ---------- Calendar ---------- */
+.cal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-top:20px;}
+.cal-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;gap:14px;box-shadow:var(--shadow);}
+.cal-date{background:var(--paper-2);border-radius:10px;width:52px;height:52px;flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Space Grotesk';color:var(--azure);}
+.cal-date b{font-size:18px;line-height:1;}
+.cal-date span{font-size:10px;text-transform:uppercase;color:var(--text-dim);}
+.cal-card h4{font-size:14.5px;margin-bottom:4px;}
+.cal-card p{font-size:12.5px;color:var(--text-dim);}
+
+/* ---------- Cards / grid generic ---------- */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+@media(max-width:860px){.grid-2,.grid-3,.hero-inner{grid-template-columns:1fr;}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);}
+
+/* ---------- Tree view (struktur pengurus) ---------- */
+.tree{display:flex;flex-direction:column;align-items:center;padding:30px 10px;}
+.tree-node{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 20px;text-align:center;box-shadow:var(--shadow);min-width:190px;}
+.tree-node.root{background:linear-gradient(160deg,var(--azure),var(--ink));color:#fff;border:none;}
+.tree-node .role{font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.75;margin-bottom:4px;}
+.tree-node.root .role{color:#CFE0FF;}
+.tree-node:not(.root) .role{color:var(--azure);}
+.tree-node .name{font-family:'Space Grotesk';font-weight:600;font-size:14.5px;}
+.branch-line{width:2px;height:26px;background:var(--line);}
+.tree-row{display:flex;gap:60px;position:relative;padding-top:26px;}
+.tree-row::before{content:"";position:absolute;top:0;left:50px;right:50px;height:2px;background:var(--line);}
+.tree-branch{display:flex;flex-direction:column;align-items:center;}
+.tree-branch .branch-line{height:26px;}
+.tree-pair{display:flex;flex-direction:column;align-items:center;gap:14px;}
+.tree-vs{font-size:11px;color:var(--text-dim);font-family:'JetBrains Mono';}
+@media(max-width:700px){.tree-row{flex-direction:column;gap:20px;}.tree-row::before{display:none;}}
+
+/* ---------- Popover ---------- */
+.popover-wrap{position:relative;display:inline-block;}
+.pop-trigger{background:var(--card);border:1px solid var(--line);}
+.popover{
+  position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(6px);
+  background:var(--ink);color:#EAF2FF;padding:14px 16px;border-radius:12px;width:230px;
+  font-size:12.5px;box-shadow:0 20px 40px -14px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:.18s;z-index:50;
+}
+.popover::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:var(--ink);}
+.popover.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto;}
+.popover b{color:var(--sky);display:block;font-family:'Space Grotesk';font-size:13.5px;margin-bottom:3px;}
+
+/* ---------- Guru grid ---------- */
+.guru-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:22px;}
+.guru-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow);cursor:pointer;transition:.2s;text-align:left;width:100%;}
+.guru-card:hover{border-color:var(--azure);transform:translateY(-3px);}
+.guru-icon{width:42px;height:42px;border-radius:10px;background:var(--paper-2);display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:10px;}
+.guru-card h4{font-size:14.5px;margin-bottom:2px;}
+.guru-card .role{font-size:11.5px;color:var(--azure);font-weight:600;text-transform:uppercase;letter-spacing:.03em;}
+
+/* ---------- Tabs (jadwal) ---------- */
+.day-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:24px;border-bottom:1px solid var(--line);padding-bottom:0;}
+.day-tab{padding:10px 16px;font-size:13px;font-weight:600;color:var(--text-dim);border-bottom:2px solid transparent;}
+.day-tab.active{color:var(--azure);border-color:var(--azure);}
+.day-panel{display:none;padding-top:20px;}
+.day-panel.active{display:block;animation:fadeUp .3s ease;}
+.lesson-list{display:flex;flex-direction:column;gap:10px;}
+.lesson-item{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;}
+.lesson-num{font-family:'JetBrains Mono';font-size:11px;color:var(--azure);background:var(--paper-2);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;}
+.lesson-item span{font-size:14px;font-weight:500;}
+
+/* ---------- Accordion ---------- */
+.accordion{margin-top:20px;border-top:1px solid var(--line);}
+.acc-item{border-bottom:1px solid var(--line);}
+.acc-head{width:100%;display:flex;justify-content:space-between;align-items:center;padding:16px 4px;text-align:left;font-family:'Space Grotesk';font-size:15px;color:var(--ink);}
+.acc-head .plus{font-size:18px;color:var(--azure);transition:.25s;}
+.acc-item.open .plus{transform:rotate(45deg);}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+.acc-item.open .acc-body{max-height:260px;}
+.acc-body-in{padding:0 4px 18px;color:var(--text-dim);font-size:13.5px;}
+
+/* ---------- Pagination / student list ---------- */
+.student-toolbar{display:flex;justify-content:space-between;align-items:center;margin:22px 0 14px;flex-wrap:wrap;gap:10px;}
+.search-box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 14px;font-size:13px;width:240px;}
+.student-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;min-height:220px;}
+.student-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 14px;display:flex;align-items:center;gap:12px;}
+.student-avatar{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--sky),var(--azure));color:#fff;font-family:'Space Grotesk';font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex:none;}
+.student-card .sname{font-size:13px;font-weight:600;}
+.student-card .sno{font-size:10.5px;color:var(--text-dim);font-family:'JetBrains Mono';}
+.pagination{display:flex;gap:6px;justify-content:center;margin-top:26px;flex-wrap:wrap;}
+.page-btn{width:36px;height:36px;border-radius:9px;background:var(--card);border:1px solid var(--line);font-size:13px;font-weight:600;color:var(--text-dim);}
+.page-btn.active{background:var(--azure);color:#fff;border-color:var(--azure);}
+.page-btn:hover:not(.active){border-color:var(--azure);color:var(--azure);}
+
+/* ---------- Rating ---------- */
+.rating-box{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);text-align:center;}
+.stars{display:flex;gap:6px;justify-content:center;margin:14px 0 6px;}
+.star{font-size:30px;color:var(--line);transition:.15s;}
+.star.on{color:var(--gold);}
+.rating-label{font-size:13px;color:var(--text-dim);}
+
+/* ---------- Mading gallery ---------- */
+.mading-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:22px;}
+.mading-item{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow);}
+.mading-ph{height:150px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Space Grotesk';font-size:13px;text-align:center;padding:10px;}
+.mading-cap{padding:11px 13px;font-size:12.5px;color:var(--text-dim);}
+
+/* ---------- Prestasi ---------- */
+.prestasi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;margin-top:22px;}
+.prestasi-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow);}
+.prestasi-card .ic{font-size:26px;margin-bottom:10px;}
+.prestasi-card h4{font-size:14.5px;margin-bottom:4px;}
+.prestasi-card p{font-size:12.5px;color:var(--text-dim);}
+.tag{display:inline-block;font-size:10.5px;background:var(--paper-2);color:var(--azure);padding:3px 9px;border-radius:999px;font-weight:600;margin-top:8px;}
+
+/* ---------- Curhat form ---------- */
+.curhat-form textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:14px;font-family:'Inter';font-size:14px;min-height:110px;resize:vertical;background:var(--paper);}
+.curhat-form button.submit{margin-top:12px;background:var(--azure);color:#fff;padding:11px 22px;border-radius:10px;font-weight:600;font-size:13.5px;}
+.curhat-form button.submit:hover{background:var(--ink);}
+.wall{margin-top:26px;display:flex;flex-direction:column;gap:10px;}
+.wall-item{background:var(--paper-2);border-radius:12px;padding:12px 16px;font-size:13.5px;color:var(--text);border-left:3px solid var(--azure);}
+
+/* ---------- Kontak ---------- */
+.contact-btn{display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;padding:13px 22px;border-radius:12px;font-weight:600;font-size:14px;box-shadow:var(--shadow);}
+.contact-form input,.contact-form textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 14px;font-family:'Inter';font-size:13.5px;margin-bottom:12px;background:var(--paper);}
+.contact-form button{background:var(--ink);color:#fff;padding:11px 24px;border-radius:10px;font-weight:600;font-size:13.5px;}
+
+footer{background:var(--ink);color:#8FA9D6;padding:34px 24px;text-align:center;font-size:12.5px;}
+footer b{color:#fff;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span><span class="dot">●</span> XI-3 SAINTEK 1 DIGITAL &nbsp;/&nbsp; TAHUN AJARAN 2026–2027</span>
+  <span>36 SISWA &nbsp;·&nbsp; 16 PENGAJAR</span>
+</div>
+
+<nav>
+  <div class="brand">
+    <div class="brand-badge">XI-3</div>
+    <div class="brand-text"><b>Saintek 1 Digital</b><span>Website Kelas · 2026/2027</span></div>
+  </div>
+  <div class="tabs" id="tabs">
+    <button class="tab-btn active" data-view="beranda">Beranda</button>
+    <button class="tab-btn" data-view="profil">Profil</button>
+    <button class="tab-btn" data-view="akademik">Akademik</button>
+    <button class="tab-btn" data-view="mading">Mading</button>
+    <button class="tab-btn" data-view="prestasi">Prestasi & Karya</button>
+    <button class="tab-btn" data-view="curhat">Sudut Curhat</button>
+    <button class="tab-btn" data-view="kontak">Kontak</button>
+  </div>
+</nav>
+
+<!-- ============ BERANDA ============ -->
+<div class="view active" id="beranda">
+  <div class="hero">
+    <div class="hero-grid-lines"></div>
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow">// Selamat datang</div>
+        <h1>Kelas XI-3 <em>Saintek 1 Digital</em><br>Tahun Ajaran 2026/2027</h1>
+        <p>Ruang digital kami untuk berbagi jadwal, karya, kabar, dan cerita — supaya satu kelas tetap terhubung, di dalam maupun di luar sekolah.</p>
+        <div class="hero-stats">
+          <div class="hero-stat"><b>36</b><span>Siswa</span></div>
+          <div class="hero-stat"><b>16</b><span>Guru Pengajar</span></div>
+          <div class="hero-stat"><b>6</b><span>Hari Belajar / Pekan</span></div>
+        </div>
+      </div>
+      <div class="id-card">
+        <div class="id-photo">XI-3</div>
+        <h3>Kartu Kelas</h3>
+        <div class="sub">Saintek 1 Digital · 2026/2027</div>
+        <div class="id-row"><span>Wali Kelas</span><b>Bu Try Ade Jumita W.</b></div>
+        <div class="id-row"><span>Ketua Kelas</span><b>M. Ridwan Nasution</b></div>
+        <div class="id-row"><span>Sekretaris</span><b>Nur Asifa</b></div>
+        <div class="id-row"><span>Bendahara</span><b>Putri Adzkia</b></div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="eyebrow">Sambutan Wali Kelas</div>
+    <h2 class="title">Kata Sambutan & Misi Kelas</h2>
+    <p class="lede">Semangat baru untuk tahun ajaran baru, dari wali kelas untuk seluruh anggota XI-3 Saintek 1 Digital.</p>
+    <div class="grid-2">
+      <div class="card">
+        <h3 style="margin-bottom:10px;">Sambutan</h3>
+        <p style="color:var(--text-dim);font-size:14px;">Selamat datang di tahun ajaran 2026/2027, anak-anak hebat XI-3! Website ini dibuat agar kita — 36 siswa dan 16 guru pengajar — bisa saling terhubung, saling mengingatkan jadwal, dan saling merayakan karya satu sama lain. Jadikan kelas ini rumah kedua kalian: tempat belajar dengan serius, tapi juga tempat tumbuh bersama dengan hangat.</p>
+        <p style="margin-top:10px;color:var(--text-dim);font-size:14px;">— Bu Try Ade Jumita Wulandari, M.Pd.Gr, Wali Kelas</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:10px;">Misi Kelas</h3>
+        <ul style="padding-left:18px;color:var(--text-dim);font-size:14px;display:flex;flex-direction:column;gap:6px;">
+          <li>Membangun budaya belajar yang disiplin, jujur, dan saling mendukung.</li>
+          <li>Menyeimbangkan prestasi akademik sains-teknologi dengan nilai keagamaan.</li>
+          <li>Mendokumentasikan setiap momen dan karya kelas secara digital.</li>
+          <li>Menjadi kelas yang solid, terbuka, dan siap membantu satu sama lain.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="quote-wrap">
+      <div class="quote-track" id="quoteTrack"></div>
+      <div class="quote-dots" id="quoteDots"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Dokumentasi Angkatan</div>
+    <h2 class="title">Foto Anggota Kelas</h2>
+    <p class="lede">Galeri foto angkatan XI-3 — geser untuk melihat semua momen kebersamaan kelas.</p>
+    <div class="carousel">
+      <div class="carousel-track" id="fotoTrack"></div>
+      <div class="carousel-nav">
+        <button id="csPrev" aria-label="Sebelumnya">‹</button>
+        <button id="csNext" aria-label="Berikutnya">›</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Agenda</div>
+    <h2 class="title">Kalender Acara Kelas</h2>
+    <p class="lede">Jangan sampai terlewat — ini agenda dan acara penting kelas kita.</p>
+    <div class="cal-grid" id="calGrid"></div>
+  </section>
+</div>
+
+<!-- ============ PROFIL ============ -->
+<div class="view" id="profil">
+  <section>
+    <div class="eyebrow">Profil Kelas</div>
+    <h2 class="title">Struktur Pengurus Kelas</h2>
+    <p class="lede">Bagan kepengurusan kelas XI-3 Saintek 1 Digital, tahun ajaran 2026/2027.</p>
+    <div class="tree">
+      <div class="tree-node root"><div class="role">Ketua Kelas</div><div class="name">Muhammad Ridwan Nasution</div></div>
+      <div class="branch-line"></div>
+      <div class="tree-node"><div class="role">Wakil Ketua</div><div class="name">Muhammad Ichsanul Arrafath</div></div>
+      <div class="tree-row">
+        <div class="tree-branch">
+          <div class="branch-line"></div>
+          <div class="tree-pair">
+            <div class="tree-node"><div class="role">Sekretaris</div><div class="name">Nur Asifa</div></div>
+            <div class="tree-vs">↳ wakil</div>
+            <div class="tree-node"><div class="role">Wakil Sekretaris</div><div class="name">Taufikia Alfisyahri Albintari</div></div>
+          </div>
+        </div>
+        <div class="tree-branch">
+          <div class="branch-line"></div>
+          <div class="tree-pair">
+            <div class="tree-node"><div class="role">Bendahara</div><div class="name">Putri Adzkia</div></div>
+            <div class="tree-vs">↳ wakil</div>
+            <div class="tree-node"><div class="role">Wakil Bendahara</div><div class="name">Thahira Sabita Salman S.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Visi</div>
+    <h2 class="title">Visi Kelas</h2>
+    <div class="card">
+      <p style="color:var(--text-dim);font-size:14.5px;">Menjadi kelas XI Saintek yang unggul dalam prestasi akademik, kuat dalam nilai keislaman, cakap dalam literasi digital, dan solid dalam kebersamaan — untuk mempersiapkan setiap anggotanya menghadapi masa depan dengan percaya diri.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Anggota Kelas</div>
+    <h2 class="title">Daftar Siswa</h2>
+    <p class="lede">36 siswa XI-3 Saintek 1 Digital. Gunakan kotak pencarian atau halaman di bawah untuk menelusuri.</p>
+    <div class="student-toolbar">
+      <input class="search-box" id="studentSearch" placeholder="Cari nama siswa...">
+      <span class="mono" style="font-size:12px;color:var(--text-dim);" id="studentCount"></span>
+    </div>
+    <div class="student-grid" id="studentGrid"></div>
+    <div class="pagination" id="studentPagination"></div>
+  </section>
+</div>
+
+<!-- ============ AKADEMIK ============ -->
+<div class="view" id="akademik">
+  <section>
+    <div class="eyebrow">Akademik</div>
+    <h2 class="title">Jadwal Pelajaran Mingguan</h2>
+    <p class="lede">Pilih hari untuk melihat mata pelajaran yang berlangsung.</p>
+    <div class="day-tabs" id="dayTabs"></div>
+    <div id="dayPanels"></div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Ujian & Tugas</div>
+    <h2 class="title">Jadwal Ujian / Tugas Harian</h2>
+    <div class="accordion" id="tugasAccordion"></div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Guru Pengajar</div>
+    <h2 class="title">16 Guru XI-3 Saintek 1 Digital</h2>
+    <p class="lede">Klik salah satu kartu untuk melihat detail singkat guru pengampu.</p>
+    <div class="guru-grid" id="guruGrid"></div>
+  </section>
+</div>
+
+<!-- ============ MADING ============ -->
+<div class="view" id="mading">
+  <section>
+    <div class="eyebrow">Mading Digital</div>
+    <h2 class="title">Dokumentasi Kegiatan Sekolah</h2>
+    <p class="lede">Kumpulan foto kegiatan kelas: studi tur, pentas seni, kerja bakti, dan momen kebersamaan lainnya.</p>
+    <div class="mading-grid" id="madingGrid"></div>
+  </section>
+</div>
+
+<!-- ============ PRESTASI ============ -->
+<div class="view" id="prestasi">
+  <section>
+    <div class="eyebrow">Ruang Apresiasi</div>
+    <h2 class="title">Prestasi & Karya Kelas</h2>
+    <p class="lede">Piala, piagam, puisi, dan karya gambar buatan siswa XI-3 — dipajang di sini sebagai bentuk apresiasi.</p>
+    <div class="prestasi-grid" id="prestasiGrid"></div>
+  </section>
+</div>
+
+<!-- ============ CURHAT ============ -->
+<div class="view" id="curhat">
+  <section>
+    <div class="eyebrow">Ruang Aman</div>
+    <h2 class="title">Sudut Curhat & Saran</h2>
+    <p class="lede">Kotak aspirasi anonim — sampaikan perasaan, masukan, atau masalah kamu. Tidak perlu mencantumkan nama.</p>
+    <div class="grid-2">
+      <div class="card curhat-form">
+        <h3 style="margin-bottom:10px;">Bagaimana perasaanmu hari ini?</h3>
+        <div class="rating-box" style="box-shadow:none;border:none;padding:10px 0 20px;">
+          <div class="stars" id="moodStars"></div>
+          <div class="rating-label" id="moodLabel">Ketuk bintang untuk menilai harimu</div>
+        </div>
+        <textarea id="curhatText" placeholder="Tulis cerita, saran, atau keluh kesahmu di sini... (anonim)"></textarea>
+        <button class="submit" id="curhatSubmit">Kirim secara anonim</button>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:10px;">🎧 Playlist Kelas</h3>
+        <p style="color:var(--text-dim);font-size:13.5px;margin-bottom:14px;">Playlist Spotify buatan anak XI-3 — teman belajar dan healing bareng.</p>
+        <iframe style="border-radius:12px;width:100%;" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" width="100%" height="352" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist Spotify Kelas XI-3"></iframe>
+        <p style="color:var(--text-dim);font-size:11.5px;margin-top:8px;">*Ganti tautan playlist di atas dengan playlist kelas kalian sendiri.</p>
+      </div>
+    </div>
+    <div class="wall" id="curhatWall"></div>
+  </section>
+</div>
+
+<!-- ============ KONTAK ============ -->
+<div class="view" id="kontak">
+  <section>
+    <div class="eyebrow">Kontak</div>
+    <h2 class="title">Hubungi Kelas Kami</h2>
+    <p class="lede">Punya pesan untuk kelas XI-3? Kirim lewat WhatsApp atau formulir di bawah ini.</p>
+    <div class="grid-2">
+      <div class="card">
+        <h3 style="margin-bottom:10px;">Grup Komunikasi Resmi</h3>
+        <p style="color:var(--text-dim);font-size:13.5px;margin-bottom:18px;">Terhubung langsung dengan kontak kelas melalui WhatsApp untuk pesan cepat atau tautan grup resmi.</p>
+        <a class="contact-btn" href="https://wa.me/6281376879154" target="_blank" rel="noopener">💬 Chat WhatsApp Kelas</a>
+        <p style="color:var(--text-dim);font-size:12.5px;margin-top:14px;">+62 813-7687-9154</p>
+      </div>
+      <div class="card contact-form">
+        <h3 style="margin-bottom:10px;">Kirim Pesan</h3>
+        <input placeholder="Nama kamu">
+        <input placeholder="Kelas / keterangan">
+        <textarea rows="4" placeholder="Tulis pesanmu..."></textarea>
+        <button type="button" onclick="alert('Terima kasih! Pesan kamu sudah tercatat (demo tampilan).')">Kirim Pesan</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <b>XI-3 Saintek 1 Digital</b> · Tahun Ajaran 2026/2027<br>
+  Dibuat dengan kebersamaan oleh anak-anak XI-3.
+</footer>
+
+<script>
+/* ================= DATA ================= */
+const GURU=[
+  {icon:"📐",m:"Matematika Wajib",n:"Ibu Dwi Ayu Apriani, S.Pd.Gr",j:"Jumat & Sabtu",k:"Guru Mapel"},
+  {icon:"📏",m:"Matematika Tingkat Lanjut",n:"Ibu Putri Winda Sari Batubara, S.Pd.Gr",j:"Jumat & Sabtu",k:"Guru Mapel"},
+  {icon:"⚡",m:"Fisika",n:"Bapak Henri Sasti, M.Sc.",j:"Senin & Rabu",k:"Guru Mapel"},
+  {icon:"⚗️",m:"Kimia",n:"Bapak Diki Suprapto, M.Pd.Gr",j:"Rabu & Jumat",k:"Guru Mapel"},
+  {icon:"🧬",m:"Biologi",n:"Ibu Try Ade Jumita Wulandari, M.Pd.Gr",j:"Senin & Rabu",k:"Wali Kelas"},
+  {icon:"📖",m:"Bahasa Indonesia",n:"Ibu Ulfah Rani Daulay, M.Pd.Gr",j:"Senin",k:"Guru Mapel"},
+  {icon:"🌐",m:"Bahasa Inggris",n:"Ibu Raihana Sakdiyah, M.A.",j:"Rabu",k:"Guru Mapel"},
+  {icon:"💻",m:"Informatika",n:"Bapak Saidina Adita Wicaksana, A.Md.Kom.",j:"Senin & Selasa",k:"Koordinator Digital"},
+  {icon:"🎨",m:"Seni Budaya",n:"Ibu Nuralifia Neami Nasution, S.Pd.",j:"Sabtu",k:"Guru Mapel"},
+  {icon:"🕌",m:"Bahasa Arab",n:"Bapak Muhammad Nazwir Harahap, S.Pd.",j:"Kamis",k:"Guru Mapel"},
+  {icon:"🕌",m:"Sejarah Kebudayaan Islam",n:"Ibu Halimahtussa'diah, S.Pd.",j:"Senin & Sabtu",k:"Guru Mapel"},
+  {icon:"🕌",m:"Fikih",n:"Bapak Risnul Hilman Siregar, S.Pd.",j:"Sabtu",k:"Guru Mapel"},
+  {icon:"🕌",m:"Al-Qur'an Hadis",n:"Ibu Lili Yuliana, S.Pd.Gr",j:"Kamis",k:"Guru Mapel"},
+  {icon:"⚖️",m:"PKN / Pendidikan Pancasila",n:"Ibu Mita Juhera, S.Pd.Gr",j:"Kamis",k:"Guru Mapel"},
+  {icon:"📜",m:"Sejarah",n:"Bapak Fiki Arul Lansyah, S.Pd.Gr",j:"Kamis",k:"Guru Mapel"},
+  {icon:"🏃",m:"PJOK",n:"Bapak Rio Agus, S.Pd.",j:"Kamis",k:"Guru Mapel"},
+];
+const MURID=["Adzka Rayi Zhafira","Afifah Maahirah","Al-Fatir Dewza","Annisa Zakiyah A.","Arel Alfachrizy","Azka Huda Adiwirya","Azkia Inda Maula","Azzkacky Al-Mirza","Beby Al Husna","Bunga Amelia","Daim Faeyza","Elderou Ibni Alvaro","Indri Niraini Nasution","Ivany Zahira Nadin","Kaka Achmad Khedira","Khairu Umam","Lutfiah Bilqis Sianipar","Muhammad Ichsanul Arrafath","Muhammad Apta Zafran S.","Muhammad Bazli Al Hadif Lubis","Muhammad Fahri","Muhammad Ridwan Nasution","Nadira Alfyza","Najla Qois Kirana","Nur Asifa","Putri Adzkia","Radith Hamdani","Rais Al Hadi","Reihana Safira Wijaya","Rodiah Siagian","Shafa Aulia Efendi","Syakira","Taufikia Alfisyahri Albintari","Thahira Sabita Salman S.","Windi Riska Rahayu","Zahratunnisa Asyifa"];
+const JADWAL={
+  "Senin":["Biologi","Fisika","Bahasa Indonesia","Informatika"],
+  "Selasa":["MLPP","Akidah Akhlak","MLTQ","Al-Qur'an Hadis","Informatika"],
+  "Rabu":["Bahasa Inggris","Kimia","Biologi","Fisika"],
+  "Kamis":["Bahasa Arab","Sejarah Kebudayaan Islam","Pendidikan Pancasila","Sejarah","PJOK"],
+  "Jumat":["Matematika","Kimia","Matematika Tingkat Lanjut"],
+  "Sabtu":["Fikih","Matematika Tingkat Lanjut","Seni Budaya","Sejarah Kebudayaan Islam","Matematika"]
+};
+const QUOTES=[
+  {t:"Kesuksesan kelas bukan dari satu orang hebat, tapi dari 36 orang yang saling menguatkan.",b:"— Motto XI-3"},
+  {t:"Belajar sains itu penting, tapi menjaga akhlak jauh lebih penting.",b:"— Wali Kelas"},
+  {t:"Digital boleh canggih, tapi kebersamaan kita tetap yang utama.",b:"— XI-3 Saintek 1 Digital"},
+  {t:"Satu kelas, satu tujuan: naik kelas bersama, sukses bersama.",b:"— Pengurus Kelas"}
+];
+const CALENDAR=[
+  {d:"18",bl:"AGU",h:"Rapat Wali Kelas & Pengurus",p:"Menyusun program kerja semester ganjil"},
+  {d:"02",bl:"SEP",h:"Studi Tur Kelas",p:"Kunjungan edukatif — konfirmasi kehadiran ke bendahara"},
+  {d:"20",bl:"SEP",h:"Ulangan Tengah Semester",p:"Seluruh mata pelajaran, sesuai jadwal akademik"},
+  {d:"10",bl:"OKT",h:"Pentas Seni Kelas",p:"Penampilan bakat siswa XI-3"},
+  {d:"01",bl:"NOV",h:"Kerja Bakti Bersama",p:"Membersihkan dan menata ruang kelas"},
+  {d:"08",bl:"DES",h:"Ulangan Akhir Semester",p:"Persiapan buku dan alat tulis dari jauh hari"}
+];
+const MADING=[
+  {t:"Studi Tur","c:":"", cap:"Dokumentasi kunjungan edukatif kelas"},
+  {t:"Pensi","cap":"Momen penampilan panggung anak XI-3"},
+  {t:"Kerja Bakti","cap":"Gotong royong membersihkan kelas"},
+  {t:"Upacara","cap":"Petugas upacara dari kelas XI-3"},
+  {t:"Kelas Kolaborasi","cap":"Diskusi kelompok mata pelajaran Informatika"},
+  {t:"Perayaan Kelas","cap":"Merayakan pencapaian bersama"}
+];
+const PRESTASI=[
+  {ic:"🏆",h:"Juara 2 Cerdas Cermat Sains",p:"Tingkat kabupaten, diwakili tim olimpiade kelas",tag:"Piala"},
+  {ic:"📜",h:"Piagam Kelas Terdisiplin",p:"Penghargaan kebersihan & ketertiban semester lalu",tag:"Piagam"},
+  {ic:"✍️",h:"'Cahaya di Ruang Kelas'",p:"Kumpulan puisi karya siswa XI-3",tag:"Puisi"},
+  {ic:"🎨",h:"Mural Digital Kelas",p:"Karya ilustrasi tema 'Masa Depan Digital'",tag:"Gambar"},
+  {ic:"🥈",h:"Juara Favorit Pensi Sekolah",p:"Penampilan drama musikal kelas",tag:"Penghargaan"},
+  {ic:"📗",h:"Antologi Cerpen Kelas",p:"Kumpulan cerita pendek karya siswa",tag:"Karya Tulis"}
+];
+
+/* ================= NAV / TABS ================= */
+const tabBtns=document.querySelectorAll(".tab-btn");
+tabBtns.forEach(btn=>btn.addEventListener("click",()=>{
+  tabBtns.forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+  document.getElementById(btn.dataset.view).classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+}));
+
+/* ================= QUOTE CAROUSEL ================= */
+const qTrack=document.getElementById("quoteTrack"), qDots=document.getElementById("quoteDots");
+QUOTES.forEach((q,i)=>{
+  const el=document.createElement("div");
+  el.className="quote-item"+(i===0?" active":"");
+  el.innerHTML=`<div class="quote-text">"${q.t}"</div><div class="quote-by">${q.b}</div>`;
+  qTrack.appendChild(el);
+  const dot=document.createElement("button");
+  dot.className=i===0?"active":"";
+  dot.addEventListener("click",()=>showQuote(i));
+  qDots.appendChild(dot);
+});
+let qIndex=0;
+function showQuote(i){
+  qIndex=i;
+  document.querySelectorAll(".quote-item").forEach((el,idx)=>el.classList.toggle("active",idx===i));
+  document.querySelectorAll(".quote-dots button").forEach((d,idx)=>d.classList.toggle("active",idx===i));
+}
+setInterval(()=>showQuote((qIndex+1)%QUOTES.length),5000);
+
+/* ================= FOTO CAROUSEL ================= */
+const fotoTrack=document.getElementById("fotoTrack");
+for(let i=1;i<=8;i++){
+  const el=document.createElement("div");
+  el.className="cslide";
+  el.innerHTML=`<div class="ph">📸 Foto Angkatan #${i}</div><div class="cap">Momen kebersamaan XI-3 · sesi ${i}</div>`;
+  fotoTrack.appendChild(el);
+}
+document.getElementById("csPrev").addEventListener("click",()=>fotoTrack.scrollBy({left:-280,behavior:"smooth"}));
+document.getElementById("csNext").addEventListener("click",()=>fotoTrack.scrollBy({left:280,behavior:"smooth"}));
+
+/* ================= CALENDAR ================= */
+const calGrid=document.getElementById("calGrid");
+CALENDAR.forEach(c=>{
+  const el=document.createElement("div");
+  el.className="cal-card";
+  el.innerHTML=`<div class="cal-date"><b>${c.d}</b><span>${c.bl}</span></div><div><h4>${c.h}</h4><p>${c.p}</p></div>`;
+  calGrid.appendChild(el);
+});
+
+/* ================= STUDENT PAGINATION + SEARCH ================= */
+const grid=document.getElementById("studentGrid");
+const pag=document.getElementById("studentPagination");
+const searchBox=document.getElementById("studentSearch");
+const countEl=document.getElementById("studentCount");
+const PER_PAGE=9;
+let curPage=1, filtered=[...MURID];
+
+function initials(name){return name.split(" ").slice(0,2).map(w=>w[0]).join("").toUpperCase();}
+
+function renderStudents(){
+  grid.innerHTML="";
+  const start=(curPage-1)*PER_PAGE;
+  const pageItems=filtered.slice(start,start+PER_PAGE);
+  pageItems.forEach(name=>{
+    const idx=MURID.indexOf(name)+1;
+    const el=document.createElement("div");
+    el.className="student-card";
+    el.innerHTML=`<div class="student-avatar">${initials(name)}</div><div><div class="sname">${name}</div><div class="sno">No. Absen ${idx}</div></div>`;
+    grid.appendChild(el);
+  });
+  countEl.textContent=`Menampilkan ${pageItems.length} dari ${filtered.length} siswa`;
+  renderPagination();
+}
+function renderPagination(){
+  pag.innerHTML="";
+  const totalPages=Math.max(1,Math.ceil(filtered.length/PER_PAGE));
+  for(let p=1;p<=totalPages;p++){
+    const b=document.createElement("button");
+    b.className="page-btn"+(p===curPage?" active":"");
+    b.textContent=p;
+    b.addEventListener("click",()=>{curPage=p;renderStudents();});
+    pag.appendChild(b);
+  }
+}
+searchBox.addEventListener("input",e=>{
+  const v=e.target.value.toLowerCase();
+  filtered=MURID.filter(n=>n.toLowerCase().includes(v));
+  curPage=1;
+  renderStudents();
+});
+renderStudents();
+
+/* ================= DAY TABS (jadwal) ================= */
+const dayTabsEl=document.getElementById("dayTabs");
+const dayPanelsEl=document.getElementById("dayPanels");
+const days=Object.keys(JADWAL);
+days.forEach((day,i)=>{
+  const tab=document.createElement("button");
+  tab.className="day-tab"+(i===0?" active":"");
+  tab.textContent=day;
+  tab.addEventListener("click",()=>{
+    document.querySelectorAll(".day-tab").forEach(t=>t.classList.remove("active"));
+    tab.classList.add("active");
+    document.querySelectorAll(".day-panel").forEach(p=>p.classList.remove("active"));
+    document.getElementById("panel-"+day).classList.add("active");
+  });
+  dayTabsEl.appendChild(tab);
+
+  const panel=document.createElement("div");
+  panel.className="day-panel"+(i===0?" active":"");
+  panel.id="panel-"+day;
+  panel.innerHTML=`<div class="lesson-list">${JADWAL[day].map((les,idx)=>`<div class="lesson-item"><div class="lesson-num">${idx+1}</div><span>${les}</span></div>`).join("")}</div>`;
+  dayPanelsEl.appendChild(panel);
+});
+
+/* ================= ACCORDION (tugas/ujian) ================= */
+const TUGAS=[
+  {q:"Ulangan Harian Matematika",a:"Bab Fungsi Komposisi & Invers — Jumat, kelas terakhir. Bawa kalkulator scientific."},
+  {q:"Tugas Praktik Informatika",a:"Membuat proyek mini web kelas (kelompok 3–4 orang) — dikumpulkan via classroom."},
+  {q:"Hafalan Al-Qur'an Hadis",a:"Setoran hafalan surah pendek — dijadwalkan bergantian setiap hari Kamis."},
+  {q:"Laporan Praktikum Biologi",a:"Laporan pengamatan sel — dikumpulkan maksimal H+3 setelah praktikum."},
+  {q:"Ulangan Tengah Semester",a:"Berlaku untuk seluruh mata pelajaran, jadwal menyusul dari bagian kurikulum."}
+];
+const accWrap=document.getElementById("tugasAccordion");
+TUGAS.forEach((item,i)=>{
+  const el=document.createElement("div");
+  el.className="acc-item"+(i===0?" open":"");
+  el.innerHTML=`<button class="acc-head"><span>${item.q}</span><span class="plus">+</span></button><div class="acc-body"><div class="acc-body-in">${item.a}</div></div>`;
+  el.querySelector(".acc-head").addEventListener("click",()=>el.classList.toggle("open"));
+  accWrap.appendChild(el);
+});
+
+/* ================= GURU GRID + POPOVER ================= */
+const guruGrid=document.getElementById("guruGrid");
+GURU.forEach((g,i)=>{
+  const wrap=document.createElement("div");
+  wrap.className="popover-wrap";
+  wrap.style.width="100%";
+  wrap.innerHTML=`
+    <button class="guru-card pop-trigger" data-i="${i}">
+      <div class="guru-icon">${g.icon}</div>
+      <h4>${g.m}</h4>
+      <div class="role">${g.k}</div>
+    </button>
+    <div class="popover" id="pop-${i}">
+      <b>${g.n}</b>
+      Mengajar: ${g.m}<br>Jadwal: ${g.j}
+    </div>`;
+  guruGrid.appendChild(wrap);
+});
+guruGrid.addEventListener("click",e=>{
+  const trig=e.target.closest(".pop-trigger");
+  document.querySelectorAll(".popover").forEach(p=>p.classList.remove("show"));
+  if(trig){
+    const pop=document.getElementById("pop-"+trig.dataset.i);
+    pop.classList.add("show");
+    e.stopPropagation();
+  }
+});
+document.addEventListener("click",()=>document.querySelectorAll(".popover").forEach(p=>p.classList.remove("show")));
+
+/* ================= MADING GALLERY ================= */
+const madingGrid=document.getElementById("madingGrid");
+const madingColors=["var(--azure),var(--ink)","var(--sky),var(--azure)","var(--gold),var(--azure)","var(--ink),var(--navy)","var(--azure-dim),var(--sky)","var(--navy),var(--ink)"];
+MADING.forEach((m,i)=>{
+  const el=document.createElement("div");
+  el.className="mading-item";
+  el.innerHTML=`<div class="mading-ph" style="background:linear-gradient(135deg,${madingColors[i%madingColors.length]})">🖼️ ${m.t}</div><div class="mading-cap">${m.cap}</div>`;
+  madingGrid.appendChild(el);
+});
+
+/* ================= PRESTASI ================= */
+const prestasiGrid=document.getElementById("prestasiGrid");
+PRESTASI.forEach(p=>{
+  const el=document.createElement("div");
+  el.className="prestasi-card";
+  el.innerHTML=`<div class="ic">${p.ic}</div><h4>${p.h}</h4><p>${p.p}</p><span class="tag">${p.tag}</span>`;
+  prestasiGrid.appendChild(el);
+});
+
+/* ================= RATING (mood) ================= */
+const moodStars=document.getElementById("moodStars");
+const moodLabel=document.getElementById("moodLabel");
+const labels=["Berat banget hari ini","Kurang baik","Biasa saja","Cukup baik","Luar biasa!"];
+let curMood=0;
+for(let i=1;i<=5;i++){
+  const s=document.createElement("span");
+  s.className="star";
+  s.textContent="★";
+  s.addEventListener("click",()=>{
+    curMood=i;
+    document.querySelectorAll(".star").forEach((st,idx)=>st.classList.toggle("on",idx<i));
+    moodLabel.textContent=labels[i-1];
+  });
+  moodStars.appendChild(s);
+}
+
+/* ================= CURHAT WALL ================= */
+const wall=document.getElementById("curhatWall");
+document.getElementById("curhatSubmit").addEventListener("click",()=>{
+  const txt=document.getElementById("curhatText").value.trim();
+  if(!txt){alert("Tulis dulu ceritamu ya, sebelum dikirim.");return;}
+  const el=document.createElement("div");
+  el.className="wall-item";
+  el.textContent=(curMood?"("+labels[curMood-1]+") ":"")+txt;
+  wall.prepend(el);
+  document.getElementById("curhatText").value="";
+  alert("Terkirim secara anonim. Terima kasih sudah berbagi 💙");
+});
+</script>
+</body>
+</html>
